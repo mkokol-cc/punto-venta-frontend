@@ -1,1 +1,8 @@
-<p>venta works!</p>
+<mat-grid-list cols="3"><!--rowHeight="100px"-->
+    <mat-grid-tile [colspan]="2">
+        <app-form-venta></app-form-venta>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1">
+        <app-form-cliente></app-form-cliente>
+    </mat-grid-tile>
+</mat-grid-list>

@@ -1,8 +1,13 @@
+import { DetalleCombo } from "./detalle-combo";
+
 export interface Articulo {
-    id:string,
+    id: number,
     codigo:string,
     nombre:string,
-    precio:number,
-    recargo:number,
-    stock:number,
+    descripcion:string,
+    stock: number,
+    costo: number,
+    recargo: number,
+    esCombo: boolean,
+    productos: DetalleCombo[]
 }

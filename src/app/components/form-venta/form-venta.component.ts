@@ -3,6 +3,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { BuscadorArticulosComponent } from '../buscador-articulos/buscador-articulos.component';
 
 
 const ELEMENT_DATA: any[] = [
@@ -20,7 +21,8 @@ const ELEMENT_DATA: any[] = [
     MatTableModule,
     MatFormFieldModule, 
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    BuscadorArticulosComponent
   ],
   templateUrl: './form-venta.component.html',
   styleUrl: './form-venta.component.scss'

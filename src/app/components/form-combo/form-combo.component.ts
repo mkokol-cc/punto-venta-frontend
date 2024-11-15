@@ -4,6 +4,7 @@ import { Articulo } from '../../interfaces/articulo';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { BuscadorArticulosComponent } from '../buscador-articulos/buscador-articulos.component';
 
 @Component({
   selector: 'app-form-combo',
@@ -13,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule, 
     MatInputModule,
     MatSelectModule,
+    BuscadorArticulosComponent
   ],
   templateUrl: './form-combo.component.html',
   styleUrl: './form-combo.component.scss'
@@ -20,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 export class FormComboComponent {
 
   form:FormGroup
+  formDetalleCombo:FormGroup
 
   constructor(
     private fb: FormBuilder,
@@ -32,6 +35,9 @@ export class FormComboComponent {
       costo: ['', [Validators.required, Validators.minLength(2)]],
       recargo: ['', [Validators.required, Validators.minLength(2)]],
       descripcion: [],
+    })
+    this.formDetalleCombo = this.fb.group({
+      cantidad: [, [Validators.required, Validators.min(0)]],
     })
   }
 

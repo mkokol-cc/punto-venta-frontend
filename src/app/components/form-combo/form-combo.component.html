@@ -30,5 +30,13 @@
     <p>{{form.get('direccion')?.value}}</p>
     <p>{{form.get('telefono')?.value}}</p>
     -->
+    <form [formGroup]="formDetalleCombo">
+        <app-buscador-articulos></app-buscador-articulos>
+        <mat-form-field>
+            <mat-label>Recargo</mat-label>
+            <input matInput formControlName="cantidad">
+        </mat-form-field>
+        <p>Articulos incluidos</p>
+    </form>
     <button (click)="getValue()">Ver objeto</button>
 </form>

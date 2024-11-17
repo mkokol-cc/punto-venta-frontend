@@ -7,10 +7,10 @@ import { MatTableModule } from '@angular/material/table';
 
 
 const ELEMENT_DATA: TipoPago[] = [
-  {id: "asd", nombre: 'Efectivo', porcentajeRecargo: 0},
-  {id: "asd", nombre: 'Transferencia', porcentajeRecargo: 5},
-  {id: "asd", nombre: '6 Cuotas', porcentajeRecargo: 15},
-  {id: "asd", nombre: '12 Cuotas', porcentajeRecargo: 20},
+  {id: 1, nombre: 'Efectivo', porcentajeRecargo: 0},
+  {id: 2, nombre: 'Transferencia', porcentajeRecargo: 5},
+  {id: 3, nombre: '6 Cuotas', porcentajeRecargo: 15},
+  {id: 4, nombre: '12 Cuotas', porcentajeRecargo: 20},
 ]
 
 

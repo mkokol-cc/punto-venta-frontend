@@ -15,9 +15,13 @@ export class TipoPagoService {
   new(tipoPago:TipoPago):Observable<TipoPago>{
     return this.http.post<TipoPago>(`${this.url}`,tipoPago)
   }
-  update():Observable<TipoPago>{}
-  list():Observable<TipoPago[]>{}
-  getById():Observable<TipoPago>{
+  update(tipoPago:TipoPago,id:number):Observable<TipoPago>{
+    return this.http.put<TipoPago>(`${this.url}/${id}`,tipoPago)
+  }
+  list():Observable<TipoPago[]>{
+    return this.http.get<TipoPago[]>(`${this.url}`)
+  }
+  getById(id:number):Observable<TipoPago>{
     return this.http.get<TipoPago>(`${this.url}/${id}`)
   }
 

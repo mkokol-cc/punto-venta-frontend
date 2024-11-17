@@ -5,6 +5,7 @@ export const routes: Routes = [
     {path: '', component: DashboardComponent, children:[
         {path: 'venta', loadComponent: () => import('./pages/venta/venta.component').then(m => m.VentaComponent), pathMatch: 'full'},
         {path: 'lista', loadComponent: () => import('./pages/articulos/articulos.component').then(m => m.ArticulosComponent), pathMatch: 'full'},
+        {path: 'tipo-pago', loadComponent: () => import('./pages/tipo-pago/tipo-pago.component').then(m => m.TipoPagoComponent), pathMatch: 'full'},
         {path: '', loadComponent: () => import('./components/lista-metodo-pago/lista-metodo-pago.component').then(m => m.ListaMetodoPagoComponent), pathMatch: 'full'},
     ]},
 ];

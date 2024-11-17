@@ -1,5 +1,5 @@
 export interface TipoPago {
-    id:string,
+    id:number,
     nombre:string,
     porcentajeRecargo:number,
 }

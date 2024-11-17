@@ -1,9 +1,10 @@
 <mat-form-field>
     <mat-label>Buscar</mat-label>
-    <input matInput [matAutocomplete]="auto" (input)="onInputChange($event)" (keydown.enter)="onEnter()">
+    <input matInput [matAutocomplete]="auto" (input)="onInputChange($event)" (keydown.enter)="onEnter()" [formControl]="selected">
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let item of filteredItems" [value]="item">
-        {{ item }}
+      <mat-option *ngFor="let item of filteredItems" [value]="item.codigo">
+        <b>{{ item.codigo }}</b> {{ item.nombre }}
       </mat-option>
     </mat-autocomplete>
+    <mat-hint>Seleccionado: {{selected.value}}</mat-hint>
 </mat-form-field>

@@ -1,1 +1,11 @@
-<p>form-metodo-pago works!</p>
+<form [formGroup]="form"><!--(ngSubmit)="onSubmit()"-->
+    <mat-form-field>
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Recargo</mat-label>
+        <input matInput formControlName="porcentajeRecargo">
+    </mat-form-field>
+    <button (click)="getValue()">Ver objeto</button>
+  </form>

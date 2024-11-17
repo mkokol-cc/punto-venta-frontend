@@ -36,7 +36,12 @@
             <mat-label>Recargo</mat-label>
             <input matInput formControlName="cantidad">
         </mat-form-field>
+        <button (click)="addProducto()">Agregar</button>
         <p>Articulos incluidos</p>
+        @for (p of productos; track p) {
+            <p>{{p.articulo.codigo}} - {{p.cantidad}}</p>
+        }
     </form>
     <button (click)="getValue()">Ver objeto</button>
+    <button (click)="save()"></button>
 </form>

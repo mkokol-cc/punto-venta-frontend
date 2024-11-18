@@ -3,6 +3,7 @@ import { TipoPago } from '../../interfaces/tipo-pago';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { TipoPagoService } from '../../services/tipo-pago.service';
 
 @Component({
   selector: 'app-form-metodo-pago',
@@ -20,10 +21,10 @@ export class FormMetodoPagoComponent {
   form:FormGroup
   constructor(
     private fb: FormBuilder,
-    //private vecinoService: VecinoService
+    private service: TipoPagoService
   ) {
     this.form = this.fb.group({
-      porcentajeRecargo: ['', [Validators.required, Validators.minLength(2)]],
+      porcentajeRecargo: ['', [Validators.required, Validators.min(0)]],
       nombre: ['', [Validators.required, Validators.minLength(2)]]
     })
   }
@@ -31,6 +32,14 @@ export class FormMetodoPagoComponent {
   getValue():TipoPago|undefined{
     if(this.form.valid){
       console.log(<TipoPago>this.form.value)
+      return <TipoPago>this.form.value
+    }
+    return undefined
+  }
+  save():TipoPago|undefined{
+    if(this.form.valid){
+      console.log(<TipoPago>this.form.value)
+      this.service.new(<TipoPago>this.form.value).subscribe()
       return <TipoPago>this.form.value
     }
     return undefined

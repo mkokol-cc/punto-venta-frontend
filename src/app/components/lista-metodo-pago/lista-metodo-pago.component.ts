@@ -4,15 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
-
-
-const ELEMENT_DATA: TipoPago[] = [
-  {id: 1, nombre: 'Efectivo', porcentajeRecargo: 0},
-  {id: 2, nombre: 'Transferencia', porcentajeRecargo: 5},
-  {id: 3, nombre: '6 Cuotas', porcentajeRecargo: 15},
-  {id: 4, nombre: '12 Cuotas', porcentajeRecargo: 20},
-]
-
+import { TipoPagoService } from '../../services/tipo-pago.service';
 
 @Component({
   selector: 'app-lista-metodo-pago',
@@ -28,7 +20,12 @@ const ELEMENT_DATA: TipoPago[] = [
 })
 export class ListaMetodoPagoComponent {
   displayedColumns: string[] = ['nombre', 'porcentajeRecargo'];
-  dataSource = ELEMENT_DATA;
+  tiposPago:TipoPago[] = []
+  constructor(private service:TipoPagoService){
+    this.service.list().subscribe(obj=>{
+      this.tiposPago = obj
+    })
+  }
 
   send(str:string){
     alert(str)

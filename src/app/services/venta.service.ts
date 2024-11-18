@@ -10,7 +10,7 @@ import { Venta } from '../interfaces/venta';
 export class VentaService {
 
   constructor(private http:HttpClient) { }
-  url:string = environment.apiUrl
+  url:string = environment.apiUrl + '/venta'
 
   new(venta:Venta):Observable<Venta>{
     return this.http.post<Venta>(`${this.url}`,venta)

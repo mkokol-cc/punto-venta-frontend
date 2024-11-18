@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { Cliente } from '../../interfaces/cliente';
+import { ClienteService } from '../../services/cliente.service';
 
 @Component({
   selector: 'app-form-cliente',
@@ -24,7 +25,7 @@ export class FormClienteComponent {
 
   constructor(
     private fb: FormBuilder,
-    //private vecinoService: VecinoService
+    private service: ClienteService
   ) {
     this.form = this.fb.group({
       cuitDni: ['', [Validators.required, Validators.minLength(2)]],
@@ -41,6 +42,20 @@ export class FormClienteComponent {
       return <Cliente>this.form.value
     }
     return undefined
+  }
+
+  async save():Promise<Cliente | undefined>{
+    let c = undefined
+    if(this.form.valid){
+      try {
+        const obj = await this.service.new(<Cliente>this.form.value).toPromise();
+        c = obj;
+      } catch (error) {
+        console.error('Error al guardar cliente:', error);
+      }
+    }
+    console.log(c)
+    return c
   }
 
 }

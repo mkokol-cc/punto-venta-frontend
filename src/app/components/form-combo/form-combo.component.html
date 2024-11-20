@@ -1,47 +1,53 @@
-<form [formGroup]="form"><!--(ngSubmit)="onSubmit()"-->
-    <mat-form-field>
-      <mat-label>Código</mat-label>
-      <input matInput formControlName="codigo">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Nombre</mat-label>
-        <input matInput formControlName="nombre">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Costo</mat-label>
-        <input matInput formControlName="costo">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Stock</mat-label>
-        <input matInput formControlName="stock">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Recargo</mat-label>
-        <input matInput formControlName="recargo">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Descripción</mat-label>
-        <textarea matInput formControlName="descripcion"></textarea>
-    </mat-form-field>
-    <!--
-      <p>{{form.get('cuitDni')?.value}}</p>
-    <p>{{form.get('condicionIva')?.value}}</p>
-    <p>{{form.get('nombre')?.value}}</p>
-    <p>{{form.get('direccion')?.value}}</p>
-    <p>{{form.get('telefono')?.value}}</p>
-    -->
-    <form [formGroup]="formDetalleCombo">
-        <app-buscador-articulos></app-buscador-articulos>
-        <mat-form-field>
-            <mat-label>Recargo</mat-label>
-            <input matInput formControlName="cantidad">
+<div class="position-relative">
+    <form class="row m-0 g-1" [formGroup]="form">
+        <mat-form-field class="col-md-4">
+          <mat-label>Código</mat-label>
+          <input matInput formControlName="codigo">
         </mat-form-field>
-        <button (click)="addProducto()">Agregar</button>
-        <p>Articulos incluidos</p>
-        @for (p of productos; track p) {
-            <p>{{p.articulo.codigo}} - {{p.cantidad}}</p>
-        }
+        <mat-form-field class="col-md-8">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre">
+        </mat-form-field>
+        <mat-form-field floatLabel="always" class="col-md-4">
+            <mat-label>Costo</mat-label>
+            <input matInput type="number" class="example-right-align" placeholder="0" formControlName="costo">
+            <span matTextPrefix>$&nbsp;</span>
+            <span matTextSuffix>.00</span>    
+        </mat-form-field>
+        <mat-form-field class="col-md-4">
+            <mat-label>Stock</mat-label>
+            <input matInput formControlName="stock">
+        </mat-form-field>
+        <mat-form-field class="col-md-4">
+            <mat-label>Recargo</mat-label>
+            <input matInput formControlName="recargo">
+        </mat-form-field>
+        <mat-form-field class="col-md-12">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput formControlName="descripcion"></textarea>
+        </mat-form-field>
+        <form [formGroup]="formDetalleCombo">
+            <app-buscador-articulos></app-buscador-articulos>
+            <mat-form-field>
+                <mat-label>Recargo</mat-label>
+                <input matInput formControlName="cantidad">
+            </mat-form-field>
+            <button mat-mini-fab color="accent" (click)="addProducto()">
+                Agregar
+                <mat-icon>filter_list</mat-icon>
+            </button>
+            <div>
+                <mat-divider></mat-divider>
+                <mat-chip-set>
+                    @for (p of productos; track p) {
+                      <mat-chip><b>{{p.articulo.codigo}} {{p.articulo.nombre}} - Cantidad:{{p.cantidad}}</b> <mat-icon matChipRemove (click)="removeProducto(p)">cancel</mat-icon></mat-chip>
+                    }
+                </mat-chip-set>
+                <mat-divider></mat-divider>
+            </div>
+        </form>
+        <!--<button (click)="getValue()">Ver objeto</button>-->
+        <button mat-raised-button color="primary" (click)="save()">Guardar</button>
     </form>
-    <button (click)="getValue()">Ver objeto</button>
-    <button (click)="save()"></button>
-</form>
+</div>
+  

@@ -10,10 +10,7 @@ import { TipoPagoService } from '../../services/tipo-pago.service';
   selector: 'app-lista-metodo-pago',
   standalone: true,
   imports: [
-    MatTableModule,
-    MatFormFieldModule, 
-    MatInputModule,
-    MatSelectModule
+    MatTableModule
   ],
   templateUrl: './lista-metodo-pago.component.html',
   styleUrl: './lista-metodo-pago.component.scss'

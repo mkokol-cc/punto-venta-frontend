@@ -6,15 +6,16 @@ import { VentaService } from '../../services/venta.service';
 import { Venta } from '../../interfaces/venta';
 import { Cliente } from '../../interfaces/cliente';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-venta',
   standalone: true,
   imports: [
-    MatGridListModule,
     CommonModule,
     FormVentaComponent,
-    FormClienteComponent
+    FormClienteComponent,
+    MatButtonModule
   ],
   templateUrl: './venta.component.html',
   styleUrl: './venta.component.scss'
@@ -35,9 +36,5 @@ export class VentaComponent {
       console.log(obj)
     })
     console.log('termine')
-  }
-
-  nose(){
-    alert('jaja')
   }
 }

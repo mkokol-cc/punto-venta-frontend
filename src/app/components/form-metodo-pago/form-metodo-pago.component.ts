@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TipoPagoService } from '../../services/tipo-pago.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-form-metodo-pago',
@@ -11,7 +12,8 @@ import { TipoPagoService } from '../../services/tipo-pago.service';
   imports: [    
     MatFormFieldModule, 
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule
   ],
   templateUrl: './form-metodo-pago.component.html',
   styleUrl: './form-metodo-pago.component.scss'

@@ -1,4 +1,4 @@
-<form [formGroup]="form"><!--(ngSubmit)="onSubmit()"-->
+<form [formGroup]="form">
     <mat-form-field>
       <mat-label>Nombre</mat-label>
       <input matInput formControlName="nombre">
@@ -7,6 +7,6 @@
         <mat-label>Recargo</mat-label>
         <input matInput formControlName="porcentajeRecargo">
     </mat-form-field>
-    <button (click)="getValue()">Ver objeto</button>
-    <button (click)="save()">Guardar</button>
+    <!--<button (click)="getValue()">Ver objeto</button>-->
+    <button mat-raised-button color="primary" (click)="save()">Guardar</button>
   </form>

@@ -1,14 +1,21 @@
-<app-buscador-articulos></app-buscador-articulos>
-<mat-form-field>
-    <mat-label>Método Pago</mat-label>
-    <mat-select [formControl]="selectedTipoPago">
-      @for(p of tiposPago; track p){
-        <mat-option [value]="p"><b>{{p.nombre}}</b> ({{p.porcentajeRecargo}}%)</mat-option>
-      }
-    </mat-select>
-    <!--<mat-hint>Seleccionado: {{selectedTipoPago.value?.nombre}}</mat-hint>-->
-  </mat-form-field>
-  <button (click)="addDetalleVenta()">Agregar</button>
+<div class="d-flex">
+  <div>
+    <app-buscador-articulos></app-buscador-articulos>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Método Pago</mat-label>
+      <mat-select [formControl]="selectedTipoPago">
+        @for(p of tiposPago; track p){
+          <mat-option [value]="p"><b>{{p.nombre}}</b> ({{p.porcentajeRecargo}}%)</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <button (click)="addDetalleVenta()">Agregar</button>
+  </div>
+</div>
 <table mat-table [dataSource]="detalleVenta">
     <!-- Position Column -->
     <ng-container matColumnDef="codigo">

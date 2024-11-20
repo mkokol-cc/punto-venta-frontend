@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Articulo } from '../interfaces/articulo';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +31,15 @@ export class ArticuloService {
   }
   getByCodigo(codigo:string):Observable<Articulo>{
     return this.http.get<Articulo>(`${this.url}/${codigo}`)
+  }
+  uploadCSV(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post(`${this.urlProducto}/upload`, formData, {
+      headers: new HttpHeaders({
+        'Accept': 'application/json',
+      }),
+      responseType: 'text', // Cambia según el tipo de respuesta del backend
+    });
   }
 }

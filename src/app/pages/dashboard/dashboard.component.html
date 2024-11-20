@@ -1,23 +1,25 @@
-<mat-toolbar>
-    <span>My App</span>
-    <button mat-fab extended color="primary" [routerLink]="'venta'">
-        <mat-icon>favorite</mat-icon>
-        Nueva Venta
-    </button>
-    <button mat-fab extended color="primary" [routerLink]="'lista'">
-        <mat-icon>favorite</mat-icon>
-        Lista de Artículos
-    </button>
-    <button mat-fab extended color="primary" [routerLink]="'tipo-pago'">
-        <mat-icon>favorite</mat-icon>
-        Métodos de Pago
-    </button>
-    <span class="example-spacer"></span>
-    <button mat-fab extended color="primary">
-        <mat-icon>favorite</mat-icon>
-        Salir
-    </button>
-</mat-toolbar>
-<div class="outlet-container">
-    <router-outlet></router-outlet>
+<div class="outlet-container bg-primary vh-100">
+    <mat-toolbar>
+        <span>My App</span>
+        <button mat-fab extended color="primary" [routerLink]="'venta'">
+            <mat-icon>favorite</mat-icon>
+            Nueva Venta
+        </button>
+        <button mat-fab extended color="primary" [routerLink]="'lista'">
+            <mat-icon>favorite</mat-icon>
+            Lista de Artículos
+        </button>
+        <button mat-fab extended color="primary" [routerLink]="'tipo-pago'">
+            <mat-icon>favorite</mat-icon>
+            Métodos de Pago
+        </button>
+        <span class="example-spacer"></span>
+        <button mat-fab extended color="primary">
+            <mat-icon>favorite</mat-icon>
+            Salir
+        </button>
+    </mat-toolbar>
+    <div class="px-4 py-4">
+        <router-outlet></router-outlet>
+    </div>
 </div>

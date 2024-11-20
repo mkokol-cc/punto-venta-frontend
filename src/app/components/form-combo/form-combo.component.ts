@@ -7,6 +7,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { BuscadorArticulosComponent } from '../buscador-articulos/buscador-articulos.component';
 import { ArticuloService } from '../../services/articulo.service';
 import { DetalleCombo } from '../../interfaces/detalle-combo';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider'
+import { MatChipsModule } from '@angular/material/chips'
 
 @Component({
   selector: 'app-form-combo',
@@ -16,6 +20,10 @@ import { DetalleCombo } from '../../interfaces/detalle-combo';
     MatFormFieldModule, 
     MatInputModule,
     MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    MatChipsModule,
+    MatDividerModule,
     BuscadorArticulosComponent
   ],
   templateUrl: './form-combo.component.html',
@@ -45,22 +53,6 @@ export class FormComboComponent {
     })
   }
 
-  /**
-   * 
-   * export interface Articulo {
-    id: number,
-    codigo:string,
-    nombre:string,
-    descripcion:string,
-    stock: number,
-    costo: number,
-    recargo: number,
-    esCombo: boolean,
-    productos: DetalleCombo[]
-}
-   */
-
-
   addProducto(){
     if(this.formDetalleCombo.valid && this.buscador.selected.valid){
       let p:DetalleCombo = {
@@ -69,6 +61,10 @@ export class FormComboComponent {
       }
       this.productos.push(p)
     }
+  }
+
+  removeProducto(p:DetalleCombo){
+    alert('voy a eliminar')
   }
 
   getValue():Articulo|undefined{

@@ -1,9 +1,9 @@
 <form [formGroup]="form"><!--(ngSubmit)="onSubmit()"-->
-  <mat-form-field>
+  <mat-form-field class="w-100">
     <mat-label>CUIT/DNI</mat-label>
     <input matInput formControlName="cuitDni">
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class="w-100">
     <mat-label>Condición IVA</mat-label>
     <mat-select formControlName="condicionIva">
       <mat-option value="CONSUMIDOR_FINAL">Consumidor Final</mat-option>
@@ -11,25 +11,18 @@
       <mat-option value="RESPONSABLE_INSCRIPTO">Responsable Inscripto</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class="w-100">
       <mat-label>Nombre y Apellido</mat-label>
       <input matInput formControlName="nombre">
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class="w-100">
       <mat-label>Dirección</mat-label>
       <input matInput formControlName="direccion">
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class="w-100">
       <mat-label>Teléfono</mat-label>
       <input matInput formControlName="telefono">
   </mat-form-field>
-  <!--
-    <p>{{form.get('cuitDni')?.value}}</p>
-  <p>{{form.get('condicionIva')?.value}}</p>
-  <p>{{form.get('nombre')?.value}}</p>
-  <p>{{form.get('direccion')?.value}}</p>
-  <p>{{form.get('telefono')?.value}}</p>
-  -->
-  <button (click)="getValue()">Ver objeto</button>
-  <button (click)="save()">Guardar</button>
+  <!--<button (click)="getValue()">Ver objeto</button>-->
+  <!--<button (click)="save()">Guardar</button>-->
 </form>

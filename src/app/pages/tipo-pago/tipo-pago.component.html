@@ -1,8 +1,8 @@
 <div class="d-flex flex-column h-100">
     <div class="flex-shrink-0 bg-light">
-        <app-form-metodo-pago></app-form-metodo-pago>
+        <app-form-metodo-pago (saveEvent)="reloadList()" [toEdit]="selectedTipoPago"></app-form-metodo-pago>
     </div>
     <div class="flex-grow-1 overflow-auto bg-dark">
-        <app-lista-metodo-pago></app-lista-metodo-pago>
+        <app-lista-metodo-pago (selectedItem)="toEdit($event)"></app-lista-metodo-pago>
     </div>
 </div>

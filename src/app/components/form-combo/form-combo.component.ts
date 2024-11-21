@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Articulo } from '../../interfaces/articulo';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,12 +29,13 @@ import { MatChipsModule } from '@angular/material/chips'
   templateUrl: './form-combo.component.html',
   styleUrl: './form-combo.component.scss'
 })
-export class FormComboComponent {
+export class FormComboComponent implements OnChanges{
 
   @ViewChild(BuscadorArticulosComponent) buscador!: BuscadorArticulosComponent;
   form:FormGroup
   formDetalleCombo:FormGroup
   productos: DetalleCombo[] = []
+  @Input() toEdit?: Articulo;
 
   constructor(
     private fb: FormBuilder,
@@ -53,18 +54,35 @@ export class FormComboComponent {
     })
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes['toEdit']){
+      this.form.get('codigo')?.setValue(this.toEdit?.codigo)
+      this.form.get('nombre')?.setValue(this.toEdit?.nombre)
+      this.form.get('stock')?.setValue(this.toEdit?.stock)
+      this.form.get('costo')?.setValue(this.toEdit?.costo)
+      this.form.get('recargo')?.setValue(this.toEdit?.recargo)
+      this.form.get('descripcion')?.setValue(this.toEdit?.descripcion)
+      this.productos = this.toEdit?.productos ? this.toEdit.productos : []
+    }
+  }
+
   addProducto(){
     if(this.formDetalleCombo.valid && this.buscador.selected.valid){
-      let p:DetalleCombo = {
-        articulo : this.buscador.getSelected()!,
-        cantidad : this.formDetalleCombo.get('cantidad')?.value
+      const detalle = this.productos.find(p => p.articulo.codigo.toLowerCase() == this.buscador.getSelected()!.codigo.toLowerCase())
+      if(detalle){
+        detalle.cantidad = detalle.cantidad+1
+      }else{
+        const p:DetalleCombo = {
+          articulo : this.buscador.getSelected()!,
+          cantidad : this.formDetalleCombo.get('cantidad')?.value
+        }
+        this.productos.push(p)
       }
-      this.productos.push(p)
     }
   }
 
   removeProducto(p:DetalleCombo){
-    alert('voy a eliminar')
+    this.productos = this.productos.filter(producto => producto.articulo.codigo.trim().toLowerCase() !== p.articulo.codigo.trim().toLowerCase());
   }
 
   getValue():Articulo|undefined{
@@ -85,10 +103,27 @@ export class FormComboComponent {
         a.esCombo = false
       }
       console.log(a)
-      this.service.new(a).subscribe()
+      this.toEdit ? this.update(a,this.toEdit.id) : this.new(a)
       return a
     }
     return undefined
+  }
+
+  new(a:Articulo){
+    this.service.new(a).subscribe(obj=>{
+      this.sendSaveEvent()
+    })
+  }
+
+  update(a:Articulo,id:number){
+    this.service.update(a,id).subscribe(obj=>{
+      this.sendSaveEvent()
+    })
+  }
+
+  @Output() saveEvent = new EventEmitter<void>();
+  sendSaveEvent(): void {
+    this.saveEvent.emit(); // Emite el evento al padre
   }
   
 }

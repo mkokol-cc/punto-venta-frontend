@@ -24,23 +24,39 @@ import { Articulo } from '../../interfaces/articulo';
 })
 export class BuscadorArticulosComponent {
   items: Articulo[] = [];
-  filteredItems: Articulo[] = [];
+  selectedArticulo?: Articulo;
   selected = new FormControl('',[Validators.required]);
 
+  filter:string = ''
+  combos:boolean = true
+  productos:boolean = true
+
   constructor(private service:ArticuloService) {
-    this.service.list().subscribe(obj=>{
+    this.getItems()
+  }
+
+  getItems(){
+    this.service.list(0,5,false,this.combos,this.productos,false,false,false,this.filter).subscribe(obj=>{
       this.items = obj
-      this.filteredItems = this.items;
     })
   }
 
   onInputChange(event: any): void {
-    const query = event.target.value.toLowerCase();
-    this.filteredItems = this.items.filter(item => item.nombre.toLowerCase().includes(query) || item.codigo.toLowerCase().includes(query));
+    const query = event.target.value;
+    if(query.length){
+      this.filter = query.toLowerCase()
+      this.getItems()
+    }else{
+      this.filter = ''
+    }
   }
 
   onEnter(): void {
-    console.log('Enter presionado, se puede realizar acción adicional');
+    if(this.selected.value){
+      this.service.getByCodigo(this.selected.value).subscribe(obj=>{
+        this.selectedArticulo = obj
+      })
+    }
   }
 
   getSelected():Articulo|undefined{

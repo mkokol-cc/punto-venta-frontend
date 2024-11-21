@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ArticuloService } from '../../services/articulo.service';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -21,7 +21,14 @@ export class UploadArticuloComponent {
 
   onUpload(): void {
     if (this.csvFile) {
-      this.service.uploadCSV(this.csvFile).subscribe();
+      this.service.uploadCSV(this.csvFile).subscribe(obj=>{
+        this.sendSaveEvent()
+      });
     }
+  }
+
+  @Output() saveEvent = new EventEmitter<void>();
+  sendSaveEvent(): void {
+    this.saveEvent.emit(); // Emite el evento al padre
   }
 }

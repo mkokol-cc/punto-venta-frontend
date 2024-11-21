@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { TipoPago } from '../../interfaces/tipo-pago';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,15 +16,22 @@ import { TipoPagoService } from '../../services/tipo-pago.service';
   styleUrl: './lista-metodo-pago.component.scss'
 })
 export class ListaMetodoPagoComponent {
-  displayedColumns: string[] = ['nombre', 'porcentajeRecargo'];
+
+  displayedColumns: string[] = ['nombre', 'porcentajeRecargo', 'buttons'];
   tiposPago:TipoPago[] = []
+  @Output() selectedItem = new EventEmitter<TipoPago>();
+  
   constructor(private service:TipoPagoService){
+    this.getItems()
+  }
+
+  getItems(){
     this.service.list().subscribe(obj=>{
       this.tiposPago = obj
     })
   }
 
-  send(str:string){
-    alert(str)
+  send(tipoPago:TipoPago){
+    this.selectedItem.emit(tipoPago);
   }
 }

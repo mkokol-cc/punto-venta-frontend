@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { ArticuloService } from '../../services/articulo.service';
 import { Articulo } from '../../interfaces/articulo';
+import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { TipoPago } from '../../interfaces/tipo-pago';
+import { TipoPagoService } from '../../services/tipo-pago.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-lista-articulos',
@@ -13,21 +19,63 @@ import { Articulo } from '../../interfaces/articulo';
     MatTableModule,
     MatFormFieldModule, 
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatIconModule,
+    FormsModule
   ],
   templateUrl: './lista-articulos.component.html',
   styleUrl: './lista-articulos.component.scss'
 })
 export class ListaArticulosComponent {
   articulos: Articulo[] = []
-  displayedColumns: string[] = ['codigo', 'nombre', 'descripcion', 'precio'];
+  displayedColumns: string[] = ['codigo', 'nombre', 'descripcion', 'precio', 'buttons'];
+  tiposPago:TipoPago[] = []
+  selectedTipoPago?:TipoPago
+  @Output() selectedItem = new EventEmitter<Articulo>();
   
-  constructor(private service:ArticuloService){
-    this.service.list().subscribe(obj=>{
+  constructor(private service:ArticuloService, private serviceTipoPago:TipoPagoService){
+    this.getItems()
+    this.serviceTipoPago.list().subscribe(obj=>{
+      this.tiposPago = obj
+    })
+  }
+
+  getItems(){
+    this.removeableFilter = (this.filter!='')
+    this.service.list(this.page,this.size,this.orderAsc,this.combos,this.productos,this.orderByNombre,
+      this.orderByCosto, this.orderByCodigo, this.filter).subscribe(obj=>{
       this.articulos = obj
     })
   }
-  send(string:string){
-    alert(string)
+
+  send(a:Articulo){
+    this.selectedItem.emit(a);
   }
+
+  //PAGINACION Y FILTRO
+  filter:string = ''
+  combos:boolean = true
+  productos:boolean = true
+  orderByNombre:boolean = false
+  orderByCosto:boolean = false
+  orderByCodigo:boolean = false
+  orderAsc:boolean = false
+  page:number = 0
+  size:number = 5
+
+  onPageChange(event: PageEvent){
+    this.page = event.pageIndex
+    this.getItems()
+  }
+
+  removeableFilter:boolean = false
+
+  removeFilter(){
+    this.filter = ''
+    this.removeableFilter = false
+    this.getItems()
+  }
+
 }

@@ -2,7 +2,7 @@
     <mat-label>Buscar</mat-label>
     <input matInput [matAutocomplete]="auto" (input)="onInputChange($event)" (keydown.enter)="onEnter()" [formControl]="selected">
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let item of filteredItems" [value]="item.codigo">
+      <mat-option *ngFor="let item of items" [value]="item.codigo">
         <b>{{ item.codigo }}</b> {{ item.nombre }}
       </mat-option>
     </mat-autocomplete>

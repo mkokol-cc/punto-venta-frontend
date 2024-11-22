@@ -46,7 +46,8 @@ export class ListaArticulosComponent {
     this.removeableFilter = (this.filter!='')
     this.service.list(this.page,this.size,this.orderAsc,this.combos,this.productos,this.orderByNombre,
       this.orderByCosto, this.orderByCodigo, this.filter).subscribe(obj=>{
-      this.articulos = obj
+      this.articulos = <Articulo[]>obj.data
+      this.count = obj.count
     })
   }
 
@@ -64,6 +65,8 @@ export class ListaArticulosComponent {
   orderAsc:boolean = false
   page:number = 0
   size:number = 5
+
+  count:number = 0
 
   onPageChange(event: PageEvent){
     this.page = event.pageIndex

@@ -37,7 +37,7 @@ export class BuscadorArticulosComponent {
 
   getItems(){
     this.service.list(0,5,false,this.combos,this.productos,false,false,false,this.filter).subscribe(obj=>{
-      this.items = obj
+      this.items = <Articulo[]>obj.data
     })
   }
 

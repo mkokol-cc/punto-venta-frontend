@@ -63,6 +63,6 @@
           *matRowDef="let row; columns: displayedColumns;"
       ></tr><!--(click)="send(articulo)"-->
     </table>
-    <mat-paginator [length]="100" [pageSize]="size" (page)="onPageChange($event)"></mat-paginator>
+    <mat-paginator [length]="count" [pageSize]="size" (page)="onPageChange($event)"></mat-paginator>
   </div>
 </div>

@@ -3,6 +3,7 @@ import { Articulo } from '../interfaces/articulo';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Page } from '../interfaces/page';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class ArticuloService {
     return this.http.put<Articulo>(`${this.urlProducto}/${id}`,articulo)
   }
   list(page:number, size:number, asc:boolean, combo:boolean, productosSimples:boolean, porNombre:boolean, 
-    porPrecioCompra:boolean, porCodigo:boolean, filtro:string):Observable<Articulo[]>{
+    porPrecioCompra:boolean, porCodigo:boolean, filtro:string):Observable<Page>{
     let params = new HttpParams()
     .set('page', page.toString())
     .set('size', size.toString())
@@ -38,7 +39,7 @@ export class ArticuloService {
     .set('porCodigo', porCodigo.toString())
     .set('asc', asc.toString())
     .set('filtro', filtro);
-    return this.http.get<Articulo[]>(`${this.url}`, { params })
+    return this.http.get<Page>(`${this.url}`, { params })
   }
   getByCodigo(codigo:string):Observable<Articulo>{
     return this.http.get<Articulo>(`${this.url}/${codigo}`)

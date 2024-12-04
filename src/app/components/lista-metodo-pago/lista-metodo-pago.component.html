@@ -14,12 +14,23 @@
   
     <ng-container matColumnDef="buttons">
       <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let tipoPago" class="text-end"><button (click)="send(tipoPago)">editar</button></td>
+      <td mat-cell *matCellDef="let tipoPago" class="text-end"><button mat-icon-button (click)="send(tipoPago)"><mat-icon>edit</mat-icon></button></td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr
-        mat-row
-        *matRowDef="let row; columns: displayedColumns;"
-    ></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="3">
+        <div class="w-100 d-flex justify-content-center">
+          <div style="height: 200px;" class="d-flex w-100">
+            <div class="m-auto text-center">
+              <mat-icon class="illustration-icon text-light">list_alt_add</mat-icon>
+              <p class="text-light fs-2">Aquí veras los métodos de pago que agregues</p>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+
   </table>

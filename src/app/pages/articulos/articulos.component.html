@@ -6,7 +6,7 @@
     <app-lista-articulos (selectedItem)="toEdit($event)"></app-lista-articulos>
   </mat-tab>
   <mat-tab label="Second">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between mb-4">
       <button mat-raised-button (click)="selectedTabIndex = 0">Lista de Artículos</button>
       <div>
         <app-upload-articulo (saveEvent)="reloadList()"></app-upload-articulo>

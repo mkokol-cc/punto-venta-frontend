@@ -1,16 +1,17 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { TipoPago } from '../../interfaces/tipo-pago';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { TipoPagoService } from '../../services/tipo-pago.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-lista-metodo-pago',
   standalone: true,
   imports: [
-    MatTableModule
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule
   ],
   templateUrl: './lista-metodo-pago.component.html',
   styleUrl: './lista-metodo-pago.component.scss'

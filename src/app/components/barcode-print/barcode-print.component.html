@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Imprimir Código de Barras</h2>
+<mat-dialog-content>
+    <div class="text-center my-4">
+        <!-- insert your custom barcode setting your data in the GET parameter "data" -->
+        <img alt='Barcode Generator TEC-IT' src='https://barcode.tec-it.com/barcode.ashx?data={{code}}&code=Code128&translate-esc=on'/>
+    </div>
+    <mat-form-field class="w-100">
+        <mat-label>Cantidad</mat-label>
+        <input matInput [(ngModel)]="cantidad">
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-button (click)="onClick()" cdkFocusInitial>Imprimir</button>
+</mat-dialog-actions>

@@ -13,7 +13,7 @@
     </mat-form-field>
   </div>
   <div>
-    <button (click)="addDetalleVenta()">Agregar</button>
+    <button mat-mini-fab (click)="addDetalleVenta()"><mat-icon>add</mat-icon></button>
   </div>
 </div>
 <table mat-table [dataSource]="detalleVenta">
@@ -48,16 +48,17 @@
     </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr
-        mat-row
-        (click)="send('hola')"
-        *matRowDef="let row; columns: displayedColumns;"
-    ></tr>
+    <tr mat-row (click)="send('hola')" *matRowDef="let row; columns: displayedColumns;"></tr>
 
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" colspan="5">
         <div class="w-100 d-flex justify-content-center">
-          <div style="height: 200px;width: 200px;background-color: aqua;"><p class="text-center">NO DATA</p></div>
+          <div style="height: 200px;" class="d-flex w-100">
+            <div class="m-auto text-center">
+              <mat-icon class="illustration-icon text-light">shopping_cart</mat-icon>
+              <p class="text-light fs-2">Agrega detalles de venta</p>
+            </div>
+          </div>
         </div>
       </td>
     </tr>

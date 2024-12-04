@@ -11,6 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { TipoPago } from '../../interfaces/tipo-pago';
 import { TipoPagoService } from '../../services/tipo-pago.service';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { BarcodePrintComponent } from '../barcode-print/barcode-print.component';
 
 @Component({
   selector: 'app-lista-articulos',
@@ -23,7 +25,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatPaginatorModule,
     MatButtonModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    BarcodePrintComponent
   ],
   templateUrl: './lista-articulos.component.html',
   styleUrl: './lista-articulos.component.scss'
@@ -35,7 +38,7 @@ export class ListaArticulosComponent {
   selectedTipoPago?:TipoPago
   @Output() selectedItem = new EventEmitter<Articulo>();
   
-  constructor(private service:ArticuloService, private serviceTipoPago:TipoPagoService){
+  constructor(private service:ArticuloService, private serviceTipoPago:TipoPagoService, public dialog: MatDialog){
     this.getItems()
     this.serviceTipoPago.list().subscribe(obj=>{
       this.tiposPago = obj
@@ -53,6 +56,16 @@ export class ListaArticulosComponent {
 
   send(a:Articulo){
     this.selectedItem.emit(a);
+  }
+
+  openDialog(codigo:string): void {
+    const dialogRef = this.dialog.open(BarcodePrintComponent, {
+      data: codigo,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log('selecciono veces: '+result)
+    });
   }
 
   //PAGINACION Y FILTRO

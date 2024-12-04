@@ -10,6 +10,8 @@ import { DetalleVenta } from '../../interfaces/detalle-venta';
 import { Articulo } from '../../interfaces/articulo';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Venta } from '../../interfaces/venta';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 
 const ELEMENT_DATA: any[] = [
@@ -29,7 +31,9 @@ const ELEMENT_DATA: any[] = [
     MatInputModule,
     MatSelectModule,
     BuscadorArticulosComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule
   ],
   templateUrl: './form-venta.component.html',
   styleUrl: './form-venta.component.scss'

@@ -61,16 +61,28 @@ export class FormMetodoPagoComponent {
   update(id:number){
     this.service.update(<TipoPago>this.form.value, id).subscribe(obj=>{
       this.sendSaveEvent()
+      this.resetForm()
     })
   }
 
   new(){
     this.service.new(<TipoPago>this.form.value).subscribe(obj=>{
       this.sendSaveEvent()
+      this.resetForm()
     })
   }
 
   sendSaveEvent(): void {
     this.saveEvent.emit(); // Emite el evento al padre
+  }
+
+  cancelEdit():void{
+    this.toEdit = undefined
+    this.resetForm()
+  }
+
+  resetForm(){
+    this.form.get('porcentajeRecargo')?.setValue('')
+    this.form.get('nombre')?.setValue('')
   }
 }

@@ -7,6 +7,11 @@
         <mat-label>Recargo</mat-label>
         <input matInput formControlName="porcentajeRecargo">
     </mat-form-field>
-    <!--<button (click)="getValue()">Ver objeto</button>-->
-    <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+    @if(toEdit){
+      <button mat-raised-button color="primary" (click)="save()">Guardar Cambios</button>
+      <button mat-raised-button color="accent" (click)="cancelEdit()">Cancelar</button>
+    }
+    @else{
+      <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+    }
   </form>

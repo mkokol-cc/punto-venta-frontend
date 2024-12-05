@@ -1,17 +1,21 @@
-<mat-tab-group [(selectedIndex)]="selectedTabIndex">
+<mat-tab-group [(selectedIndex)]="selectedTabIndex" [dynamicHeight]="true">
   <mat-tab label="First">
-    <div class="text-end">
-      <button mat-raised-button (click)="new()">Nuevo Artículo</button>
+    <div class="tab-container">
+      <div class="text-end">
+        <button mat-raised-button (click)="new()">Nuevo Artículo</button>
+      </div>
+      <app-lista-articulos (selectedItem)="toEdit($event)"></app-lista-articulos>
     </div>
-    <app-lista-articulos (selectedItem)="toEdit($event)"></app-lista-articulos>
   </mat-tab>
   <mat-tab label="Second">
-    <div class="d-flex justify-content-between mb-4">
-      <button mat-raised-button (click)="selectedTabIndex = 0">Lista de Artículos</button>
-      <div>
-        <app-upload-articulo (saveEvent)="reloadList()"></app-upload-articulo>
+    <div class="tab-container">
+      <div class="d-flex justify-content-between mb-4">
+        <button mat-raised-button (click)="selectedTabIndex = 0">Lista de Artículos</button>
+        <div>
+          <app-upload-articulo (saveEvent)="reloadList()"></app-upload-articulo>
+        </div>
       </div>
+      <app-form-combo [toEdit]="articuloSelected" (saveEvent)="reloadList()"></app-form-combo>
     </div>
-    <app-form-combo [toEdit]="articuloSelected" (saveEvent)="reloadList()"></app-form-combo>
   </mat-tab>
 </mat-tab-group>

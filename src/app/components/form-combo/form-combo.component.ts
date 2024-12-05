@@ -125,5 +125,20 @@ export class FormComboComponent implements OnChanges{
   sendSaveEvent(): void {
     this.saveEvent.emit(); // Emite el evento al padre
   }
+
+  cancelEdit(){
+    this.toEdit = undefined
+    this.resetForm()
+  }
+
+  resetForm(){
+    this.form.get('codigo')?.setValue('')
+    this.form.get('nombre')?.setValue('')
+    this.form.get('stock')?.setValue('')
+    this.form.get('costo')?.setValue('')
+    this.form.get('recargo')?.setValue('')
+    this.form.get('descripcion')?.setValue('')
+    this.productos = []
+  }
   
 }

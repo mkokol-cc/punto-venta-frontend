@@ -11,7 +11,7 @@ export const messageInterceptor: HttpInterceptorFn = (req, next) => {
       // Personalizar el error o transformarlo antes de propagarlo
       const customError = {
         status: error.status,
-        message: 'Custom error message',
+        message: 'Interceptor',
         originalError: error.error,
       };
       return throwError(() => customError); // Propagar un error personalizado

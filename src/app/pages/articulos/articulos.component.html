@@ -1,3 +1,4 @@
+<!--
 <mat-tab-group [(selectedIndex)]="selectedTabIndex" [dynamicHeight]="true">
   <mat-tab label="First">
     <div class="tab-container">
@@ -19,3 +20,10 @@
     </div>
   </mat-tab>
 </mat-tab-group>
+-->
+<div>
+  <div class="text-end">
+    <button mat-raised-button (click)="new()">Nuevo Artículo</button>
+  </div>
+  <app-lista-articulos (selectedItem)="toEdit($event)"></app-lista-articulos>
+</div>

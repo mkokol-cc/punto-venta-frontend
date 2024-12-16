@@ -13,7 +13,7 @@ import { Articulo } from '../../interfaces/articulo';
     MatTabsModule,
     FormComboComponent,
     ListaArticulosComponent,
-    UploadArticuloComponent,
+    
     MatButtonModule
   ],
   templateUrl: './articulos.component.html',

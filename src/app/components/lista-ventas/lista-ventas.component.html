@@ -1,0 +1,104 @@
+<div>
+    <div class="d-flex">
+      <div>
+        <mat-form-field>
+          <mat-label>Buscar</mat-label>
+          <input matInput type="text" [(ngModel)]="busqueda">
+          @if (removeableFilter) {
+            <button matSuffix mat-icon-button (click)="removeFilter()">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Método Pago</mat-label>
+          <mat-select [(ngModel)]="selectedTipoPago">
+            @for(p of tiposPago; track p){
+              <mat-option [value]="p"><b>{{p.nombre}}</b> ({{p.porcentajeRecargo}}%)</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Desde</mat-label>
+          <input matInput [matDatepicker]="pickerMinimio" [(ngModel)]="fechaDesde">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="pickerMinimio"></mat-datepicker-toggle>
+          <mat-datepicker #pickerMinimio></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Hasta</mat-label>
+          <input matInput [matDatepicker]="pickerMaximo" [(ngModel)]="fechaHasta">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="pickerMaximo"></mat-datepicker-toggle>
+          <mat-datepicker #pickerMaximo></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-flat-button [disabled]="busqueda.length<3 && !(selectedTipoPago) && !(fechaDesde) && !(fechaHasta)" (click)="getItems()"><mat-icon>search</mat-icon> Filtrar</button>
+      </div>
+    </div>
+    <div>
+      <table mat-table [dataSource]="ventas">
+        <!-- Position Column -->
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef>Fecha</th>
+          <td mat-cell *matCellDef="let venta">{{venta.fechaHora}}</td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="cliente">
+          <th mat-header-cell *matHeaderCellDef>Cliente</th>
+          <td mat-cell *matCellDef="let venta">{{venta.cliente.nombre}}</td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="tipoPago">
+          <th mat-header-cell *matHeaderCellDef>Tipo de Pago</th>
+          <td mat-cell *matCellDef="let venta">{{venta.tipoPago.nombre}}</td>
+        </ng-container>
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef>Total</th>
+          <td mat-cell *matCellDef="let venta">{{calcularTotal(venta.detalleVenta)}}</td>
+        </ng-container>
+        
+        <ng-container matColumnDef="buttons">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let venta" class="text-end">
+            <button mat-icon-button (click)="openDialog(venta.id)" ><mat-icon>print</mat-icon></button>
+          </td>
+        </ng-container>
+        
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr><!--(click)="send(articulo)"-->
+  
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="5">
+            <div class="w-100 d-flex justify-content-center">
+              <div style="height: 200px;" class="d-flex w-100">
+                <div class="m-auto text-center">
+                  <mat-icon class="illustration-icon text-light">list_alt_add</mat-icon>
+                  @if(true){
+                    <p class="text-light fs-2">No hay ventas que cumplan con la búsqueda</p><!--removeableFilter-->
+                  }
+                  @else{
+                    <p class="text-light fs-2">Aquí veras las ventas que registres</p>
+                  }
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+  
+      </table>
+      <mat-paginator [length]="count" [pageSize]="size" (page)="onPageChange($event)"></mat-paginator>
+    </div>
+  </div>

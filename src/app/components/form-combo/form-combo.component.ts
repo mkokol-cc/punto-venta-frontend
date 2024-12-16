@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Articulo } from '../../interfaces/articulo';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider'
 import { MatChipsModule } from '@angular/material/chips'
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-form-combo',
@@ -29,17 +30,18 @@ import { MatChipsModule } from '@angular/material/chips'
   templateUrl: './form-combo.component.html',
   styleUrl: './form-combo.component.scss'
 })
-export class FormComboComponent implements OnChanges{
+export class FormComboComponent implements OnInit{
 
   @ViewChild(BuscadorArticulosComponent) buscador!: BuscadorArticulosComponent;
   form:FormGroup
   formDetalleCombo:FormGroup
   productos: DetalleCombo[] = []
-  @Input() toEdit?: Articulo;
+  id:number|undefined = undefined
 
   constructor(
     private fb: FormBuilder,
-    private service: ArticuloService
+    private service: ArticuloService,
+    private route: ActivatedRoute
   ) {
     this.form = this.fb.group({
       codigo: ['', [Validators.required, Validators.minLength(2)]],
@@ -54,16 +56,18 @@ export class FormComboComponent implements OnChanges{
     })
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if(changes['toEdit']){
-      this.form.get('codigo')?.setValue(this.toEdit?.codigo)
-      this.form.get('nombre')?.setValue(this.toEdit?.nombre)
-      this.form.get('stock')?.setValue(this.toEdit?.stock)
-      this.form.get('costo')?.setValue(this.toEdit?.costo)
-      this.form.get('recargo')?.setValue(this.toEdit?.recargo)
-      this.form.get('descripcion')?.setValue(this.toEdit?.descripcion)
-      this.productos = this.toEdit?.productos ? this.toEdit.productos : []
-    }
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.service.getByCodigo(params['codigo']).subscribe(obj=>{
+        this.form.get('codigo')?.setValue(obj.codigo)
+        this.form.get('nombre')?.setValue(obj.nombre)
+        this.form.get('stock')?.setValue(obj.stock)
+        this.form.get('costo')?.setValue(obj.costo)
+        this.form.get('recargo')?.setValue(obj.recargo)
+        this.form.get('descripcion')?.setValue(obj.descripcion)
+        this.productos = obj.productos ? obj.productos : []
+      })
+    });
   }
 
   addProducto(){
@@ -103,31 +107,22 @@ export class FormComboComponent implements OnChanges{
         a.esCombo = false
       }
       console.log(a)
-      this.toEdit ? this.update(a,this.toEdit.id) : this.new(a)
+      this.id ? this.update(a,this.id) : this.new(a)
       return a
     }
     return undefined
   }
 
   new(a:Articulo){
-    this.service.new(a).subscribe(obj=>{
-      this.sendSaveEvent()
-    })
+    this.service.new(a).subscribe()
   }
 
   update(a:Articulo,id:number){
-    this.service.update(a,id).subscribe(obj=>{
-      this.sendSaveEvent()
-    })
-  }
-
-  @Output() saveEvent = new EventEmitter<void>();
-  sendSaveEvent(): void {
-    this.saveEvent.emit(); // Emite el evento al padre
+    this.service.update(a,id).subscribe()
   }
 
   cancelEdit(){
-    this.toEdit = undefined
+    this.id = undefined
     this.resetForm()
   }
 

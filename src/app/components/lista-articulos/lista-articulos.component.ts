@@ -13,6 +13,7 @@ import { TipoPagoService } from '../../services/tipo-pago.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { BarcodePrintComponent } from '../barcode-print/barcode-print.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-articulos',
@@ -38,7 +39,11 @@ export class ListaArticulosComponent {
   selectedTipoPago?:TipoPago
   @Output() selectedItem = new EventEmitter<Articulo>();
   
-  constructor(private service:ArticuloService, private serviceTipoPago:TipoPagoService, public dialog: MatDialog){
+  constructor(
+    private service:ArticuloService, 
+    private serviceTipoPago:TipoPagoService, 
+    public dialog: MatDialog,
+    private router: Router){
     this.getItems()
     this.serviceTipoPago.list().subscribe(obj=>{
       this.tiposPago = obj
@@ -55,7 +60,7 @@ export class ListaArticulosComponent {
   }
 
   send(a:Articulo){
-    this.selectedItem.emit(a);
+    this.router.navigate(['/articulo'], { queryParams: { codigo: a.codigo } });
   }
 
   openDialog(codigo:string): void {
@@ -66,6 +71,10 @@ export class ListaArticulosComponent {
       console.log('The dialog was closed');
       console.log('selecciono veces: '+result)
     });
+  }
+
+  precio(costo:number, recargo:number){
+    return (costo * (1 + (recargo/100))).toFixed(2)
   }
 
   //PAGINACION Y FILTRO

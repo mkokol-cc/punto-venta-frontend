@@ -2,13 +2,21 @@
     <mat-toolbar>
         <span>MUEBLERIA</span>
         <span class="example-spacer"></span>
+        <a mat-button [routerLink]="'mis-ventas'" class="text-secondary" routerLinkActive="text-light">
+            <mat-icon>favorite</mat-icon>
+            Lista de Ventas
+        </a>
         <a mat-button [routerLink]="'venta'" class="text-secondary" routerLinkActive="text-light">
             <mat-icon>favorite</mat-icon>
             Nueva Venta
         </a>
-        <a mat-button [routerLink]="'lista'" class="text-secondary" routerLinkActive="text-light">
+        <a mat-button [routerLink]="'mis-articulos'" class="text-secondary" routerLinkActive="text-light">
             <mat-icon>favorite</mat-icon>
             Lista de Artículos
+        </a>
+        <a mat-button [routerLink]="'articulo'" class="text-secondary" routerLinkActive="text-light">
+            <mat-icon>favorite</mat-icon>
+            Nuevo Artículo
         </a>
         <a mat-button [routerLink]="'tipo-pago'" class="text-secondary" routerLinkActive="text-light">
             <mat-icon>favorite</mat-icon>

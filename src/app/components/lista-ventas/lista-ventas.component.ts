@@ -16,12 +16,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { DetalleVenta } from '../../interfaces/detalle-venta';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-lista-ventas',
   standalone: true,
   providers: [provideNativeDateAdapter()],
   imports: [
+    CommonModule,
     MatFormFieldModule, 
     MatInputModule, 
     MatDatepickerModule,
@@ -53,8 +55,13 @@ export class ListaVentasComponent {
   }
 
   getItems(){
-    this.removeableFilter = (this.busqueda!='')
-    this.service.list(this.page, this.size, this.fechaDesde, this.fechaHasta, this.busqueda, this.tipoPagoId,
+    this.removeableFilter = (
+      this.busqueda!='' || 
+      this.fechaDesde!=undefined || 
+      this.fechaHasta!=undefined || 
+      this.selectedTipoPago!=undefined
+    )
+    this.service.list(this.page, this.size, this.fechaDesde, this.fechaHasta, this.busqueda, this.selectedTipoPago?.id,
       this.porPrecio, this.porFecha, this.asc).subscribe(obj=>{
       this.ventas = <Venta[]>obj.data
       this.count = obj.count
@@ -96,8 +103,27 @@ export class ListaVentasComponent {
 
   removeFilter(){
     this.busqueda = ''
+    this.fechaDesde=undefined
+    this.fechaHasta=undefined
+    this.selectedTipoPago=undefined
     this.removeableFilter = false
     this.getItems()
+  }
+
+
+  parseToDate(rawDate: string): Date {
+    const dateParts = String(rawDate).split(',').map(Number); // Convertir a números
+    // Recordar que los meses en Date van de 0 (enero) a 11 (diciembre)
+    const date = new Date(
+      dateParts[0], // Año
+      dateParts[1] - 1, // Mes (ajustar índice)
+      dateParts[2], // Día
+      dateParts[3], // Hora
+      dateParts[4], // Minuto
+      dateParts[5], // Segundo
+      dateParts[6] / 1000000 // Milisegundos
+    )
+    return date;
   }
 
 }

@@ -41,10 +41,10 @@
       </div>
       <div>
         @if(removeableFilter){
-          <button mat-flat-button (click)="removeFilter()"><mat-icon>close</mat-icon> Borrar filtros</button>
+          <button mat-flat-button color="accent" (click)="removeFilter()"><mat-icon>close</mat-icon> Borrar filtros</button>
         }
         @else{
-          <button mat-flat-button [disabled]="busqueda.length<3 && !(selectedTipoPago) && !(fechaDesde) && !(fechaHasta)" (click)="getItems()"><mat-icon>search</mat-icon> Filtrar</button>
+          <button mat-flat-button color="primary" [disabled]="busqueda.length<3 && !(selectedTipoPago) && !(fechaDesde) && !(fechaHasta)" (click)="getItems()"><mat-icon>search</mat-icon> Filtrar</button>
         }
       </div>
     </div>

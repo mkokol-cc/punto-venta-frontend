@@ -1,29 +1,32 @@
-<div class="outlet-container bg-primary vh-100 d-flex flex-column">
-    <mat-toolbar>
+<div class="outlet-container vh-100 d-flex flex-column">
+    <mat-toolbar class="toolbar-menu">
+        <!--
         <span>MUEBLERIA</span>
         <span class="example-spacer"></span>
+        -->
         <a mat-button [routerLink]="'mis-ventas'" class="text-secondary" routerLinkActive="text-light">
-            <mat-icon>favorite</mat-icon>
+            <mat-icon>receipt_long</mat-icon>
             Lista de Ventas
         </a>
         <a mat-button [routerLink]="'venta'" class="text-secondary" routerLinkActive="text-light">
-            <mat-icon>favorite</mat-icon>
+            <mat-icon>point_of_sale</mat-icon>
             Nueva Venta
         </a>
         <a mat-button [routerLink]="'mis-articulos'" class="text-secondary" routerLinkActive="text-light">
-            <mat-icon>favorite</mat-icon>
+            <mat-icon>menu_book</mat-icon>
             Lista de Artículos
         </a>
         <a mat-button [routerLink]="'articulo'" class="text-secondary" routerLinkActive="text-light">
-            <mat-icon>favorite</mat-icon>
+            <mat-icon>add_circle</mat-icon>
             Nuevo Artículo
         </a>
         <a mat-button [routerLink]="'tipo-pago'" class="text-secondary" routerLinkActive="text-light">
-            <mat-icon>favorite</mat-icon>
+            <mat-icon>paid</mat-icon>
             Métodos de Pago
         </a>
+        <span class="example-spacer"></span>
         <a mat-button class="text-danger" (click)="logout()">
-            <mat-icon>favorite</mat-icon>
+            <mat-icon>logout</mat-icon>
             Salir
         </a>
     </mat-toolbar>

@@ -5,12 +5,12 @@
       <input matInput formControlName="cuitDni" >
     </mat-form-field>
     @if(!clienteEncontrado){
-      <button mat-mini-fab (click)="findClient()">
+      <button mat-mini-fab color="primary" (click)="findClient()">
         <mat-icon>send</mat-icon>
       </button>
     }
     @else{
-      <button mat-mini-fab (click)="resetFindCliente()">
+      <button mat-mini-fab color="warn" (click)="resetFindCliente()">
         <mat-icon>close</mat-icon>
       </button>
     }
@@ -36,6 +36,6 @@
       <input matInput formControlName="telefono">
   </mat-form-field>
   @if(clienteEncontrado){
-    <button mat-raised-button (click)="editForm()">Editar Datos</button>
+    <button mat-raised-button color="primary" (click)="editForm()">Editar Datos</button>
   }
 </form>

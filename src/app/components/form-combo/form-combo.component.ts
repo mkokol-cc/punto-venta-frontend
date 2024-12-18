@@ -60,6 +60,7 @@ export class FormComboComponent implements OnInit{
     this.route.queryParams.subscribe((params) => {
       if(params['codigo']){
         this.service.getByCodigo(params['codigo']).subscribe(obj=>{
+          this.id = obj.id
           this.form.get('codigo')?.setValue(obj.codigo)
           this.form.get('nombre')?.setValue(obj.nombre)
           this.form.get('stock')?.setValue(obj.stock)

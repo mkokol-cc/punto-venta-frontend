@@ -1,12 +1,12 @@
-.example-right-align {
+.number-input {
   text-align: right;
 }
 
-input.example-right-align::-webkit-outer-spin-button,
-input.example-right-align::-webkit-inner-spin-button {
+input.number-input::-webkit-outer-spin-button,
+input.number-input::-webkit-inner-spin-button {
   display: none;
 }
 
-input.example-right-align {
+input.number-input {
   -moz-appearance: textfield;
 }

@@ -1,8 +1,20 @@
 <form [formGroup]="form"><!--(ngSubmit)="onSubmit()"-->
-  <mat-form-field class="w-100">
-    <mat-label>CUIT/DNI</mat-label>
-    <input matInput formControlName="cuitDni">
-  </mat-form-field>
+  <div class="w-100">
+    <mat-form-field>
+      <mat-label>CUIT/DNI</mat-label>
+      <input matInput formControlName="cuitDni" >
+    </mat-form-field>
+    @if(!clienteEncontrado){
+      <button mat-mini-fab (click)="findClient()">
+        <mat-icon>send</mat-icon>
+      </button>
+    }
+    @else{
+      <button mat-mini-fab (click)="resetFindCliente()">
+        <mat-icon>close</mat-icon>
+      </button>
+    }
+  </div>
   <mat-form-field class="w-100">
     <mat-label>Condición IVA</mat-label>
     <mat-select formControlName="condicionIva">
@@ -13,7 +25,7 @@
   </mat-form-field>
   <mat-form-field class="w-100">
       <mat-label>Nombre y Apellido</mat-label>
-      <input matInput formControlName="nombre">
+      <input matInput formControlName="nombre"><!--clienteEncontrado && !edit-->
   </mat-form-field>
   <mat-form-field class="w-100">
       <mat-label>Dirección</mat-label>
@@ -23,6 +35,7 @@
       <mat-label>Teléfono</mat-label>
       <input matInput formControlName="telefono">
   </mat-form-field>
-  <!--<button (click)="getValue()">Ver objeto</button>-->
-  <!--<button (click)="save()">Guardar</button>-->
+  @if(clienteEncontrado){
+    <button mat-raised-button (click)="editForm()">Editar Datos</button>
+  }
 </form>

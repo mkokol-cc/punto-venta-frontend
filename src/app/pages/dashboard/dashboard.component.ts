@@ -3,6 +3,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
+import { SesionService } from '../../services/sesion.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,5 +18,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
-
+  constructor(private sesionService:SesionService){}
+  logout(){
+    this.sesionService.logout()
+  }
 }

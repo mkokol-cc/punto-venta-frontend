@@ -58,15 +58,17 @@ export class FormComboComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.service.getByCodigo(params['codigo']).subscribe(obj=>{
-        this.form.get('codigo')?.setValue(obj.codigo)
-        this.form.get('nombre')?.setValue(obj.nombre)
-        this.form.get('stock')?.setValue(obj.stock)
-        this.form.get('costo')?.setValue(obj.costo)
-        this.form.get('recargo')?.setValue(obj.recargo)
-        this.form.get('descripcion')?.setValue(obj.descripcion)
-        this.productos = obj.productos ? obj.productos : []
-      })
+      if(params['codigo']){
+        this.service.getByCodigo(params['codigo']).subscribe(obj=>{
+          this.form.get('codigo')?.setValue(obj.codigo)
+          this.form.get('nombre')?.setValue(obj.nombre)
+          this.form.get('stock')?.setValue(obj.stock)
+          this.form.get('costo')?.setValue(obj.costo)
+          this.form.get('recargo')?.setValue(obj.recargo)
+          this.form.get('descripcion')?.setValue(obj.descripcion)
+          this.productos = obj.productos ? obj.productos : []
+        })
+      }
     });
   }
 

@@ -23,7 +23,7 @@
 -->
 <div>
   <div class="text-end">
-    <button mat-raised-button (click)="new()">Nuevo Artículo</button>
+    <a mat-raised-button [routerLink]="'/articulo'">Nuevo Artículo</a>
   </div>
-  <app-lista-articulos (selectedItem)="toEdit($event)"></app-lista-articulos>
+  <app-lista-articulos></app-lista-articulos>
 </div>

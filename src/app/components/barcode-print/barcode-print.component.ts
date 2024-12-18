@@ -11,6 +11,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { PdfService } from '../../services/pdf.service';
 
 @Component({
   selector: 'app-barcode-print',
@@ -32,6 +33,7 @@ export class BarcodePrintComponent {
   constructor(
     public dialogRef: MatDialogRef<BarcodePrintComponent>,
     @Inject(MAT_DIALOG_DATA) public code: string,
+    private pdfService:PdfService
   ) {}
 
   cantidad:number = 0
@@ -41,7 +43,7 @@ export class BarcodePrintComponent {
   }
 
   onClick(): void {
-    alert("TENGO QUE HACER EL DOCUMENTO PDF")
+    this.pdfService.generatePdfWithRepeatedBarcode(this.code,this.cantidad)
     this.dialogRef.close(this.cantidad);
   }
 }

@@ -46,13 +46,13 @@ export class SesionService {
       this.setToken(obj.token)
       this.setUsername(obj.username)
       this.setRole(obj.role)
-      this.router.navigateByUrl('/')
+      this.router.navigateByUrl('/mis-articulos')
     })
   }
 
   async validateRole(): Promise<string> {
-    const url = 'http://localhost:8080/auth'
-    return firstValueFrom(this.http.get<string>(url));
+    const url = 'http://localhost:8080/auth';
+    return firstValueFrom(this.http.get<{ role: string }>(url)).then(response => response.role);
   }
 
   setToken(token:string){

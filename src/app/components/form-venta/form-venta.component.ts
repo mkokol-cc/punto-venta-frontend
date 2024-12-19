@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
@@ -13,6 +13,8 @@ import { Venta } from '../../interfaces/venta';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CurrencyPipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { EditDetalleVentaComponent } from '../edit-detalle-venta/edit-detalle-venta.component';
 
 
 const ELEMENT_DATA: any[] = [
@@ -41,14 +43,15 @@ const ELEMENT_DATA: any[] = [
   styleUrl: './form-venta.component.scss'
 })
 export class FormVentaComponent {
-  displayedColumns: string[] = ['codigo', 'nombre', 'cantidad', 'precio', 'subtotal'];
+  displayedColumns: string[] = ['codigo', 'nombre', 'cantidad', 'precio', 'subtotal', 'buttons'];
   tiposPago:TipoPago[] = []
   selectedTipoPago = new FormControl(null,Validators.required)
   recargoSelectedTipoPago:number = 1
   @ViewChild(BuscadorArticulosComponent) buscador!: BuscadorArticulosComponent;
   detalleVenta:DetalleVenta[] = []
+  @Output() saveEvent = new EventEmitter<void>();
 
-  constructor(private tipoPagoService:TipoPagoService){
+  constructor(private tipoPagoService:TipoPagoService,public dialog: MatDialog){
     this.tipoPagoService.list().subscribe(obj=>{
       this.tiposPago = obj
     })
@@ -59,6 +62,10 @@ export class FormVentaComponent {
         this.recargoSelectedTipoPago = 1
       }
     });
+  }
+
+  sendSaveEvent(): void {
+    this.saveEvent.emit(); // Emite el evento al padre
   }
 
   updateDataForTipoPago(tipoPago:TipoPago){
@@ -102,5 +109,18 @@ export class FormVentaComponent {
       return vta
     }
     return undefined
+  }
+
+  openDialog(detalleVenta:DetalleVenta): void {
+    const dialogRef = this.dialog.open(EditDetalleVentaComponent, {
+      data: detalleVenta,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == null){
+        this.detalleVenta = this.detalleVenta.filter(item => item !== detalleVenta);
+      }else{
+        detalleVenta.cantidad = result
+      }
+    });
   }
 }

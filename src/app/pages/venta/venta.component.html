@@ -1,9 +1,8 @@
 <div class="row m-0 g-3">
     <div class="col-md-9">
-        <app-form-venta></app-form-venta>
+        <app-form-venta (saveEvent)="save()"></app-form-venta>
     </div>
     <div class="col-md-3">
         <app-form-cliente></app-form-cliente>
     </div>
 </div>
-<button mat-raised-button color="primary" (click)="save()">Guardar</button>

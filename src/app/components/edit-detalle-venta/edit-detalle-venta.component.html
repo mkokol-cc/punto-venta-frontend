@@ -1,1 +1,11 @@
-<p>edit-detalle-venta works!</p>
+<h2 mat-dialog-title>Editar Detalle de Venta</h2>
+<mat-dialog-content>
+    <mat-form-field class="w-100">
+        <mat-label>Cantidad</mat-label>
+        <input matInput [(ngModel)]="cantidad">
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Eliminar</button>
+    <button mat-button (click)="onClick()" cdkFocusInitial>Hecho</button>
+</mat-dialog-actions>

@@ -18,7 +18,13 @@ import { SesionService } from '../../services/sesion.service';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
-  constructor(private sesionService:SesionService){}
+  isAdmin:boolean = false
+  constructor(private sesionService:SesionService){
+    let role = sesionService.getRole();
+    if(role && role=='ADMINISTRADOR'){
+      this.isAdmin=true
+    }
+  }
   logout(){
     this.sesionService.logout()
   }

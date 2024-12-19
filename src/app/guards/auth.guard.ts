@@ -11,6 +11,9 @@ export const authAdminGuard: CanActivateFn = async (route, state) => {
     const role = await sesionService.validateRole(); // Espera el valor del servicio
     if (role === 'ADMINISTRADOR') {
       return true;
+    }else if(role === 'VENDEDOR'){
+      sesionService.response("No tienes los permisos necesarios para esta acción",true)
+      return false
     } else {
       router.navigateByUrl(routeToNavigate)
       return false;

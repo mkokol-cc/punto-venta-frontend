@@ -16,14 +16,16 @@
             <mat-icon>menu_book</mat-icon>
             Lista de Artículos
         </a>
-        <a mat-button [routerLink]="'articulo'" class="text-secondary" routerLinkActive="text-light">
-            <mat-icon>add_circle</mat-icon>
-            Nuevo Artículo
-        </a>
-        <a mat-button [routerLink]="'tipo-pago'" class="text-secondary" routerLinkActive="text-light">
-            <mat-icon>paid</mat-icon>
-            Métodos de Pago
-        </a>
+        @if(isAdmin){
+            <a mat-button [routerLink]="'articulo'" class="text-secondary" routerLinkActive="text-light">
+                <mat-icon>add_circle</mat-icon>
+                Nuevo Artículo
+            </a>
+            <a mat-button [routerLink]="'tipo-pago'" class="text-secondary" routerLinkActive="text-light">
+                <mat-icon>paid</mat-icon>
+                Métodos de Pago
+            </a>
+        }
         <span class="example-spacer"></span>
         <a mat-button class="text-danger" (click)="logout()">
             <mat-icon>logout</mat-icon>

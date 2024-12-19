@@ -78,7 +78,7 @@
         <!-- Symbol Column -->
         <ng-container matColumnDef="total">
           <th mat-header-cell *matHeaderCellDef>Total</th>
-          <td mat-cell *matCellDef="let venta">{{calcularTotal(venta.detalleVenta)}}</td>
+          <td mat-cell *matCellDef="let venta">{{calcularTotal(venta.detalleVenta) | currency}}</td>
         </ng-container>
         
         <ng-container matColumnDef="buttons">

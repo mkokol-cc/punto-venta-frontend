@@ -48,7 +48,7 @@
       <!-- Symbol Column -->
       <ng-container matColumnDef="precio">
         <th mat-header-cell *matHeaderCellDef>Precio</th>
-        <td mat-cell *matCellDef="let articulo">{{selectedTipoPago ? precio(articulo.costo ,selectedTipoPago.porcentajeRecargo) : articulo.costo}}</td>
+        <td mat-cell *matCellDef="let articulo">{{(selectedTipoPago ? precio(articulo.costo ,selectedTipoPago.porcentajeRecargo) : articulo.costo) | currency}}</td>
       </ng-container>
       
       <ng-container matColumnDef="buttons">

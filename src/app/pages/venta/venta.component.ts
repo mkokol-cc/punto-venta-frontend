@@ -29,6 +29,7 @@ export class VentaComponent {
   async save(){
     console.log('arranque')
     const c:Cliente | undefined = await this.cliente.save()
+    console.log(c)
     const v:Venta = this.venta.getVenta()!
     v.cliente = c
     console.log(v)

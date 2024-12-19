@@ -8,6 +8,7 @@ import { Cliente } from '../../interfaces/cliente';
 import { ClienteService } from '../../services/cliente.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-form-cliente',
@@ -26,7 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class FormClienteComponent {
 
   form:FormGroup
-  clienteEncontrado:boolean = false
+  clienteEncontrado?:number
 
   constructor(
     private fb: FormBuilder,
@@ -43,30 +44,30 @@ export class FormClienteComponent {
 
   blockForm(block:boolean){
     if(block){
-      this.form.get('cuitDni')?.disable()
-      this.form.get('nombre')?.disable()
-      this.form.get('telefono')?.disable()
-      this.form.get('direccion')?.disable()
-      this.form.get('condicionIva')?.disable()
+      this.form.get('cuitDni')?.disable({ emitEvent: false })
+      this.form.get('nombre')?.disable({ emitEvent: false })
+      this.form.get('telefono')?.disable({ emitEvent: false })
+      this.form.get('direccion')?.disable({ emitEvent: false })
+      this.form.get('condicionIva')?.disable({ emitEvent: false })
     }else{
-      this.form.get('cuitDni')?.enable()
-      this.form.get('nombre')?.enable()
-      this.form.get('telefono')?.enable()
-      this.form.get('direccion')?.enable()
-      this.form.get('condicionIva')?.enable()
+      this.form.get('cuitDni')?.enable({ emitEvent: false })
+      this.form.get('nombre')?.enable({ emitEvent: false })
+      this.form.get('telefono')?.enable({ emitEvent: false })
+      this.form.get('direccion')?.enable({ emitEvent: false })
+      this.form.get('condicionIva')?.enable({ emitEvent: false })
     }
   }
 
   editForm(){
-    this.form.get('nombre')?.enable()
-    this.form.get('telefono')?.enable()
-    this.form.get('direccion')?.enable()
-    this.form.get('condicionIva')?.enable()
+    this.form.get('nombre')?.enable({ emitEvent: false })
+    this.form.get('telefono')?.enable({ emitEvent: false })
+    this.form.get('direccion')?.enable({ emitEvent: false })
+    this.form.get('condicionIva')?.enable({ emitEvent: false })
   }
 
   resetFindCliente(){
     this.form.reset()
-    this.clienteEncontrado = false
+    this.clienteEncontrado = undefined
     this.blockForm(false)
   }
 
@@ -78,7 +79,7 @@ export class FormClienteComponent {
         this.form.get('direccion')?.setValue(obj.direccion ? obj.direccion : '')
         this.form.get('condicionIva')?.setValue(obj.condicionIva ? obj.condicionIva : '')
         if(obj.id){
-          this.clienteEncontrado = true
+          this.clienteEncontrado = Number(obj.id)
           this.blockForm(true)
         }
       })
@@ -95,15 +96,21 @@ export class FormClienteComponent {
 
   async save():Promise<Cliente | undefined>{
     let c = undefined
+    this.form.enable()
     if(this.form.valid){
+      this.form.disable()
       try {
-        const obj = await this.service.new(<Cliente>this.form.value).toPromise();
-        c = obj;
+        if(this.clienteEncontrado){
+          const obj = await firstValueFrom(this.service.update(<Cliente>this.form.value,this.clienteEncontrado));
+          c = obj;
+        }else{
+          const obj = await firstValueFrom(this.service.new(<Cliente>this.form.value));
+          c = obj;
+        }
       } catch (error) {
         console.error('Error al guardar cliente:', error);
       }
     }
-    console.log(c)
     return c
   }
 

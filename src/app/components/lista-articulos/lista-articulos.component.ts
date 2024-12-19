@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { BarcodePrintComponent } from '../barcode-print/barcode-print.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-lista-articulos',
@@ -27,7 +28,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     MatButtonModule,
     MatIconModule,
     FormsModule,
-    BarcodePrintComponent
+    BarcodePrintComponent,
+    CurrencyPipe
   ],
   templateUrl: './lista-articulos.component.html',
   styleUrl: './lista-articulos.component.scss'

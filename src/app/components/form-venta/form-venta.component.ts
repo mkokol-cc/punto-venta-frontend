@@ -12,6 +12,7 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Venta } from '../../interfaces/venta';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { CurrencyPipe } from '@angular/common';
 
 
 const ELEMENT_DATA: any[] = [
@@ -33,7 +34,8 @@ const ELEMENT_DATA: any[] = [
     BuscadorArticulosComponent,
     ReactiveFormsModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    CurrencyPipe
   ],
   templateUrl: './form-venta.component.html',
   styleUrl: './form-venta.component.scss'
@@ -42,6 +44,7 @@ export class FormVentaComponent {
   displayedColumns: string[] = ['codigo', 'nombre', 'cantidad', 'precio', 'subtotal'];
   tiposPago:TipoPago[] = []
   selectedTipoPago = new FormControl(null,Validators.required)
+  recargoSelectedTipoPago:number = 1
   @ViewChild(BuscadorArticulosComponent) buscador!: BuscadorArticulosComponent;
   detalleVenta:DetalleVenta[] = []
 
@@ -49,6 +52,21 @@ export class FormVentaComponent {
     this.tipoPagoService.list().subscribe(obj=>{
       this.tiposPago = obj
     })
+    this.selectedTipoPago.valueChanges.subscribe(value => {
+      if(value){
+        this.updateDataForTipoPago(value)
+      }else{
+        this.recargoSelectedTipoPago = 1
+      }
+    });
+  }
+
+  updateDataForTipoPago(tipoPago:TipoPago){
+    this.recargoSelectedTipoPago = 1+(tipoPago.porcentajeRecargo/100)
+    this.detalleVenta.forEach(d => {
+      const recargoArticulo = 1+(d.articulo.recargo/100)
+      d.precio = d.articulo.costo * recargoArticulo * this.recargoSelectedTipoPago
+    });
   }
 
   addDetalleVenta(){
@@ -58,9 +76,10 @@ export class FormVentaComponent {
         detalle.cantidad = detalle.cantidad+1
       }else{
         const a:Articulo = this.buscador.getSelected()!
+        const recargoArticulo = (1+(a.recargo/100))
         const det:DetalleVenta = {
           articulo: a,
-          precio: (a.costo * a.recargo),
+          precio: (a.costo * recargoArticulo * this.recargoSelectedTipoPago),
           cantidad: 1
         }
         this.detalleVenta.push(det)
@@ -69,8 +88,8 @@ export class FormVentaComponent {
     }
   }
 
-  send(string:string){
-    alert(string)
+  getTotal() {
+    return this.detalleVenta.map(dv => (dv.cantidad * dv.precio)).reduce((acc, value) => acc + value, 0);
   }
 
   getVenta(){

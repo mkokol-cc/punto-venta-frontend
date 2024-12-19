@@ -16,7 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { DetalleVenta } from '../../interfaces/detalle-venta';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ViewVentaComponent } from '../view-venta/view-venta.component';
 
 @Component({
@@ -34,7 +34,8 @@ import { ViewVentaComponent } from '../view-venta/view-venta.component';
     MatButtonModule,
     MatIconModule,
     FormsModule,
-    ViewVentaComponent
+    ViewVentaComponent,
+    CurrencyPipe
   ],
   templateUrl: './lista-ventas.component.html',
   styleUrl: './lista-ventas.component.scss'

@@ -17,6 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { DetalleVenta } from '../../interfaces/detalle-venta';
 import { CommonModule } from '@angular/common';
+import { ViewVentaComponent } from '../view-venta/view-venta.component';
 
 @Component({
   selector: 'app-lista-ventas',
@@ -33,6 +34,7 @@ import { CommonModule } from '@angular/common';
     MatButtonModule,
     MatIconModule,
     FormsModule,
+    ViewVentaComponent
   ],
   templateUrl: './lista-ventas.component.html',
   styleUrl: './lista-ventas.component.scss'
@@ -95,8 +97,10 @@ export class ListaVentasComponent {
   }
 
 
-  openDialog(id:number){
-    console.log(id)
+  openDialog(venta:Venta){
+    const dialogRef = this.dialog.open(ViewVentaComponent, {
+      data: venta,
+    });
   }
 
   removeableFilter:boolean = false

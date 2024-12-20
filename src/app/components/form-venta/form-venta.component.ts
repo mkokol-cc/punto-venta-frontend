@@ -116,10 +116,12 @@ export class FormVentaComponent {
       data: detalleVenta,
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result == null){
-        this.detalleVenta = this.detalleVenta.filter(item => item !== detalleVenta);
-      }else{
-        detalleVenta.cantidad = result
+      if(result){
+        if(result == -1){
+          this.detalleVenta = this.detalleVenta.filter(item => item !== detalleVenta);
+        }else{
+          detalleVenta.cantidad = result
+        }
       }
     });
   }

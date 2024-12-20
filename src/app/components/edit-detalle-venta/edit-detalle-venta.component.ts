@@ -32,8 +32,8 @@ export class EditDetalleVentaComponent {
 
   cantidad:number = 0
 
-  onNoClick(): void {
-    this.dialogRef.close(null);
+  delete(): void {
+    this.dialogRef.close(-1);
   }
 
   onClick(): void {

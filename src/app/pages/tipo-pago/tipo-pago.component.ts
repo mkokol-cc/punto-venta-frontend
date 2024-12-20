@@ -23,7 +23,7 @@ export class TipoPagoComponent {
   }
 
   toEdit(tipoPago:TipoPago){
-    this.selectedTipoPago = tipoPago
+    this.selectedTipoPago = { ...tipoPago };
   }
 
 }

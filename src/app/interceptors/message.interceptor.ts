@@ -19,12 +19,15 @@ export const messageInterceptor: HttpInterceptorFn = (req, next) => {
     }),
     catchError((error: HttpErrorResponse) => {//actua cuando hay errores
       console.error('Error occurred:', error.error);
+      if(req.url.includes("/auth")){
+        sesionService.logout()
+        sesionService.response("Tu sesión expiró, ingresa nuevamente.",true);
+      }
       if(error.status==401){
         if(req.url.includes("/login")){
           sesionService.response(<string>error.error,true);
         }else{
-          sesionService.logout()
-          sesionService.response("Tu sesión expiró, ingresa nuevamente.",true);
+          sesionService.response("No tienes permisos para realizar esta acción.",true);
         }
       }else if(error.status==0){
         sesionService.response("Error inesperado.",true);

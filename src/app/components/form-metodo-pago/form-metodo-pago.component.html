@@ -1,17 +1,24 @@
 <form [formGroup]="form">
+    @if(toEdit){
+      <h4>Editar Tipo de Pago</h4>
+    }
+    @else{
+      <h4>Nuevo Tipo de Pago</h4>
+    }
     <mat-form-field>
       <mat-label>Nombre</mat-label>
       <input matInput formControlName="nombre">
     </mat-form-field>
     <mat-form-field>
         <mat-label>Recargo</mat-label>
-        <input matInput formControlName="porcentajeRecargo">
+        <input matInput type="number" formControlName="porcentajeRecargo">
     </mat-form-field>
     @if(toEdit){
-      <button mat-raised-button color="primary" (click)="save()">Guardar Cambios</button>
+      <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="save()">Guardar Cambios</button>
       <button mat-raised-button color="accent" (click)="cancelEdit()">Cancelar</button>
     }
     @else{
-      <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+      <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="save()">Guardar</button>
     }
+    {{toEdit?toEdit.nombre : ''}}
   </form>

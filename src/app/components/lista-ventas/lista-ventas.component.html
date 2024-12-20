@@ -3,18 +3,21 @@
       <div>
         <mat-form-field>
           <mat-label>Buscar</mat-label>
-          <input matInput type="text" [(ngModel)]="busqueda">
+          <input matInput type="text" [(ngModel)]="busqueda" [disabled]="removeableFilter">
+          <!--
+          
           @if (removeableFilter) {
             <button matSuffix mat-icon-button (click)="removeFilter()">
               <mat-icon>close</mat-icon>
             </button>
           }
+            -->
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
           <mat-label>Método Pago</mat-label>
-          <mat-select [(ngModel)]="selectedTipoPago">
+          <mat-select [(ngModel)]="selectedTipoPago" [disabled]="removeableFilter">
             @for(p of tiposPago; track p){
               <mat-option [value]="p"><b>{{p.nombre}}</b> ({{p.porcentajeRecargo}}%)</mat-option>
             }
@@ -24,7 +27,7 @@
       <div>
         <mat-form-field>
           <mat-label>Desde</mat-label>
-          <input matInput [matDatepicker]="pickerMinimio" [(ngModel)]="fechaDesde">
+          <input matInput [matDatepicker]="pickerMinimio" [(ngModel)]="fechaDesde" [disabled]="removeableFilter">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="pickerMinimio"></mat-datepicker-toggle>
           <mat-datepicker #pickerMinimio></mat-datepicker>
@@ -33,7 +36,7 @@
       <div>
         <mat-form-field>
           <mat-label>Hasta</mat-label>
-          <input matInput [matDatepicker]="pickerMaximo" [(ngModel)]="fechaHasta">
+          <input matInput [matDatepicker]="pickerMaximo" [(ngModel)]="fechaHasta" [disabled]="removeableFilter">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="pickerMaximo"></mat-datepicker-toggle>
           <mat-datepicker #pickerMaximo></mat-datepicker>

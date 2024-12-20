@@ -21,17 +21,25 @@ export class VentaService {
     let params = new HttpParams()
     .set('page', page.toString())
     .set('size', size.toString())
-    .set('fechaDesde', fechaDesde ? fechaDesde.toString() : '')
-    .set('fechaHasta', fechaHasta ? fechaHasta.toString() : '')
     .set('busqueda', busqueda.toString())
     .set('tipoPagoId', tipoPagoId ? tipoPagoId.toString() : '')
     .set('porPrecio', porPrecio.toString())
     .set('porFecha', porFecha.toString())
     .set('asc', asc.toString());
+    if(fechaDesde){
+      params.set('fechaDesde', this.parseDate(fechaDesde))
+    }
+    if(fechaHasta){
+      params.set('fechaHasta', this.parseDate(fechaHasta))
+    }
     return this.http.get<Page>(`${this.url}`, { params })
   }
   getById(id:number):Observable<Venta>{
     return this.http.get<Venta>(`${this.url}/${id}`)
+  }
+
+  parseDate(date:Date):string{
+    return `${date.getFullYear()}-${(date.getMonth()+1)}-${date.getDay()}`
   }
 
 }

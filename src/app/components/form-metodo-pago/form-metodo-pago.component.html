@@ -1,10 +1,10 @@
-<form [formGroup]="form">
-    @if(toEdit){
-      <h4>Editar Tipo de Pago</h4>
-    }
-    @else{
-      <h4>Nuevo Tipo de Pago</h4>
-    }
+@if(toEdit){
+  <h4>Editar Tipo de Pago</h4>
+}
+@else{
+  <h4>Nuevo Tipo de Pago</h4>
+}
+<form [formGroup]="form" class="d-flex" style="gap:10px">
     <mat-form-field>
       <mat-label>Nombre</mat-label>
       <input matInput formControlName="nombre">
@@ -20,5 +20,4 @@
     @else{
       <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="save()">Guardar</button>
     }
-    {{toEdit?toEdit.nombre : ''}}
   </form>

@@ -1,7 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+// Importa los temas de Angular Material
+@use '@angular/material' as mat;
+
+
+// Define la tipografía personalizada usando Rubik
+$my-custom-typography: mat.define-typography-config(
+  $font-family: 'Rubik, sans-serif',
+);
+
+// Define la paleta primary usando el color por defecto de warn
+$my-primary-palette: mat.define-palette(mat.$cyan-palette);
+
+// Define la paleta warn usando el color por defecto de primary
+$my-warn-palette: mat.define-palette(mat.$red-palette);
+
+// Define el tema personalizado intercambiando primary y warn
+$my-custom-theme: mat.define-light-theme((
+  color: (
+    primary: $my-primary-palette,
+    accent: mat.define-palette(mat.$deep-orange-palette),
+    warn: $my-warn-palette,
+  ),
+  typography: $my-custom-typography,
+  //typography: mat.define-typography-config(),
+));
+
+// Aplica el tema a todos los componentes de Angular Material
+@include mat.all-component-themes($my-custom-theme);
+
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: aquamarine;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+background-color: #e2e2e2;}
 
 .mat-mdc-tab-header{
     display: none !important;
@@ -11,4 +41,29 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
     font-size: 124px;
     height: 124px !important;
     width: 124px !important;
+}
+
+.mat-mdc-paginator{
+    background-color: #0000 !important;
+}
+
+.success-message div:first-child{
+    background-color: #65ff65;
+    font-weight: bolder;
+}
+.error-message div:first-child{
+    background-color: #ff6565;
+    //font-weight: bolder;
+}
+.error-message button:first-child span:first-child, .success-message button:first-child span:first-child{
+    background-color: #0000001c;
+}
+
+.error-message button:first-child span, .success-message button:first-child span{
+    color: #fff;
+}
+.error-message button:first-child, .success-message button:first-child,
+.error-message .mat-mdc-snack-bar-label, .success-message .mat-mdc-snack-bar-label{
+    font-size: medium !important;
+    //font-weight: bolder;
 }

@@ -1,4 +1,4 @@
-<mat-form-field>
+<mat-form-field class="w-100">
     <mat-label>Buscar</mat-label>
     <input matInput [matAutocomplete]="auto" (input)="onInputChange($event)" (keydown.enter)="onEnter()" [formControl]="selected">
     <mat-autocomplete #auto="matAutocomplete">

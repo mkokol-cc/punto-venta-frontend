@@ -10,3 +10,8 @@ input.number-input::-webkit-inner-spin-button {
 input.number-input {
   -moz-appearance: textfield;
 }
+
+
+.combo-item-container {
+  background-color: var(--mdc-filled-text-field-container-color);
+}

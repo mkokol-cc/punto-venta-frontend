@@ -1,4 +1,4 @@
-<div class="d-flex">
+<div class="d-flex" style="gap:10px">
   <div>
     <app-buscador-articulos></app-buscador-articulos>
   </div>
@@ -16,7 +16,7 @@
     <button mat-mini-fab color="primary" (click)="addDetalleVenta()"><mat-icon>add</mat-icon></button>
   </div>
 </div>
-<table mat-table [dataSource]="detalleVenta">
+<table mat-table [dataSource]="detalleVenta" class="mat-elevation-z8 my-3">
     <!-- Position Column -->
     <ng-container matColumnDef="codigo">
       <th mat-header-cell *matHeaderCellDef>Código</th>
@@ -69,8 +69,8 @@
         <div class="w-100 d-flex justify-content-center">
           <div style="height: 200px;" class="d-flex w-100">
             <div class="m-auto text-center">
-              <mat-icon class="illustration-icon text-light">shopping_cart</mat-icon>
-              <p class="text-light fs-2">Agrega detalles de venta</p>
+              <mat-icon class="illustration-icon">shopping_cart</mat-icon>
+              <p class="fs-2">Agrega detalles de venta</p>
             </div>
           </div>
         </div>

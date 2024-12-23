@@ -2,9 +2,9 @@
     <div>
         <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept=".csv"/>
         <button mat-raised-button color="primary" (click)="fileInput.click()">Seleccionar CSV</button>
-        <button mat-flat-button color="primary" (click)="onUpload()" [disabled]="!csvFile">Subir</button>
+        <button mat-flat-button color="accent" (click)="onUpload()" [disabled]="!csvFile">Subir</button>
     </div>
     @if(csvFile){
-        <div>{{csvFile.name}}</div>
+        <div>{{csvFile.name}} <span class="text-danger ml-3" style="cursor: pointer;text-decoration: underline;" (click)="csvFile=undefined">cancelar</span></div>
     }
 </div>

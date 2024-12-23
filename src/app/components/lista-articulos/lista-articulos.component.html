@@ -1,5 +1,5 @@
 <div>
-  <div class="d-flex">
+  <div class="d-flex" style="gap:10px">
     <div>
       <mat-form-field>
         <mat-label>Buscar</mat-label>
@@ -26,7 +26,7 @@
     </div>
   </div>
   <div>
-    <table mat-table [dataSource]="articulos">
+    <table mat-table [dataSource]="articulos" class="mat-elevation-z8 my-3">
       <!-- Position Column -->
       <ng-container matColumnDef="codigo">
         <th mat-header-cell *matHeaderCellDef>Código</th>
@@ -68,12 +68,12 @@
           <div class="w-100 d-flex justify-content-center">
             <div style="height: 200px;" class="d-flex w-100">
               <div class="m-auto text-center">
-                <mat-icon class="illustration-icon text-light">list_alt_add</mat-icon>
+                <mat-icon class="illustration-icon">list_alt_add</mat-icon>
                 @if(removeableFilter){
-                  <p class="text-light fs-2">No hay artículos que cumplan con la búsqueda</p>
+                  <p class="fs-2">No hay artículos que cumplan con la búsqueda</p>
                 }
                 @else{
-                  <p class="text-light fs-2">Aquí veras los artículos que agregues</p>
+                  <p class="fs-2">Aquí veras los artículos que agregues</p>
                 }
               </div>
             </div>

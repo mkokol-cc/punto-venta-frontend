@@ -11,7 +11,7 @@ import { Page } from '../interfaces/page';
 export class VentaService {
 
   constructor(private http:HttpClient) { }
-  url:string = environment.apiUrl + '/venta'
+  url:string = environment.apiUrl + '/api/venta'
 
   new(venta:Venta):Observable<Venta>{
     return this.http.post<Venta>(`${this.url}`,venta)

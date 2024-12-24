@@ -11,9 +11,9 @@ import { Page } from '../interfaces/page';
 export class ArticuloService {
 
   constructor(private http:HttpClient) { }
-  url:string = environment.apiUrl + '/articulo'
-  urlProducto:string = environment.apiUrl + '/producto'
-  urlCombo:string = environment.apiUrl + '/combo'
+  url:string = environment.apiUrl + '/api/articulo'
+  urlProducto:string = environment.apiUrl + '/api/producto'
+  urlCombo:string = environment.apiUrl + '/api/combo'
 
   new(articulo:Articulo):Observable<Articulo>{
     if(articulo.esCombo){

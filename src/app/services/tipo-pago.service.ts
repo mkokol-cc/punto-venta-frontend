@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 export class TipoPagoService {
 
   constructor(private http:HttpClient) { }
-  url:string = environment.apiUrl + '/tipo-pago'
+  url:string = environment.apiUrl + '/api/tipo-pago'
 
   new(tipoPago:TipoPago):Observable<TipoPago>{
     return this.http.post<TipoPago>(`${this.url}`,tipoPago)

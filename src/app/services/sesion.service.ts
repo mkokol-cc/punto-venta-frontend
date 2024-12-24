@@ -7,6 +7,7 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class SesionService {
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+  url:string = environment.apiUrl
 
   constructor(
     private http: HttpClient,
@@ -39,7 +41,7 @@ export class SesionService {
   }
 
   login(credentials:any){
-    const url = 'http://localhost:8080/login'
+    const url = this.url + '/login'
     let params = new HttpParams()
     .set('noexpiration', credentials.noExpiration);
     this.http.post<any>(`${url}`,credentials, {params}).subscribe(obj=>{
@@ -51,7 +53,7 @@ export class SesionService {
   }
 
   async validateRole(): Promise<string> {
-    const url = 'http://localhost:8080/auth';
+    const url = this.url + '/auth';
     return firstValueFrom(this.http.get<{ role: string }>(url)).then(response => response.role);
   }
 

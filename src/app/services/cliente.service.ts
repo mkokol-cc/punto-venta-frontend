@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 export class ClienteService {
 
   constructor(private http:HttpClient) { }
-  url:string = environment.apiUrl + '/cliente'
+  url:string = environment.apiUrl + '/api/cliente'
 
   new(Cliente:Cliente):Observable<Cliente>{
     return this.http.post<Cliente>(`${this.url}`,Cliente)

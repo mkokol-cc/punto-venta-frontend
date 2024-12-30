@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BarcodePrintComponent } from '../barcode-print/barcode-print.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-lista-articulos',
@@ -36,7 +37,7 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class ListaArticulosComponent {
   articulos: Articulo[] = []
-  displayedColumns: string[] = ['codigo', 'nombre', 'descripcion', 'precio', 'buttons'];
+  displayedColumns: string[] = ['codigo', 'nombre', 'descripcion', 'precio', 'stock', 'buttons'];
   tiposPago:TipoPago[] = []
   selectedTipoPago?:TipoPago
   @Output() selectedItem = new EventEmitter<Articulo>();
@@ -76,7 +77,12 @@ export class ListaArticulosComponent {
   }
 
   precio(costo:number, recargo:number){
-    return (costo * (1 + (recargo/100))).toFixed(2)
+    const recargoArticulo = (1 + (recargo/100))
+    const recargoMetodoPago = this.selectedTipoPago ? (1 + (this.selectedTipoPago.porcentajeRecargo/100)) : 1
+    console.log(costo)
+    console.log(recargoArticulo)
+    console.log(recargoMetodoPago)
+    return (costo * recargoArticulo * recargoMetodoPago).toFixed(2)
   }
 
   //PAGINACION Y FILTRO

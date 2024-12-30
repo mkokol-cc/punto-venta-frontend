@@ -42,4 +42,9 @@ export class VentaService {
     return `${date.getFullYear()}-${(date.getMonth()+1)}-${date.getDay()}`
   }
 
+
+  delete(id:number):Observable<any>{
+    return this.http.delete<any>(`${this.url}/${id}`)
+  }
+
 }

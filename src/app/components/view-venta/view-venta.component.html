@@ -45,6 +45,11 @@
                 <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
             </table>
         </div>
+        @if(venta.nota.length>0){
+          <div>
+            <p class="m-0"><b>Nota: </b>{{venta.nota}}</p>
+          </div>
+        }
         @if(venta.cliente){
             <div>
                 <h3>Cliente</h3>

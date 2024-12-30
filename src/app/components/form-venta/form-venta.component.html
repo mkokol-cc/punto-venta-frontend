@@ -77,5 +77,8 @@
       </td>
     </tr>
 </table>
-
+<mat-form-field class="w-100">
+  <mat-label>Nota</mat-label>
+  <textarea matInput formControlName="notaVenta"></textarea>
+</mat-form-field>
 <button mat-raised-button color="primary" (click)="sendSaveEvent()" [disabled]="!(detalleVenta.length>0) || !selectedTipoPago.value">Guardar</button>

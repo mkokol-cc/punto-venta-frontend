@@ -18,6 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 import { DetalleVenta } from '../../interfaces/detalle-venta';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ViewVentaComponent } from '../view-venta/view-venta.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-lista-ventas',
@@ -35,6 +36,7 @@ import { ViewVentaComponent } from '../view-venta/view-venta.component';
     MatIconModule,
     FormsModule,
     ViewVentaComponent,
+    ConfirmDialogComponent,
     CurrencyPipe
   ],
   templateUrl: './lista-ventas.component.html',
@@ -55,6 +57,17 @@ export class ListaVentasComponent {
     this.serviceTipoPago.list().subscribe(obj=>{
       this.tiposPago = obj
     })
+  }
+
+  delete(v:Venta){
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result && v.id){
+        this.service.delete(Number(v.id)).subscribe(obj=>{
+          this.getItems()
+        })
+      }
+    });
   }
 
   getItems(){

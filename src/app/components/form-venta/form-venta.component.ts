@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CurrencyPipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { EditDetalleVentaComponent } from '../edit-detalle-venta/edit-detalle-venta.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 
 const ELEMENT_DATA: any[] = [
@@ -46,6 +47,7 @@ export class FormVentaComponent {
   displayedColumns: string[] = ['codigo', 'nombre', 'cantidad', 'precio', 'subtotal', 'buttons'];
   tiposPago:TipoPago[] = []
   selectedTipoPago = new FormControl(null,Validators.required)
+  notaVenta:string='';
   recargoSelectedTipoPago:number = 1
   @ViewChild(BuscadorArticulosComponent) buscador!: BuscadorArticulosComponent;
   detalleVenta:DetalleVenta[] = []
@@ -104,7 +106,8 @@ export class FormVentaComponent {
       const t = <TipoPago>this.selectedTipoPago.value!
       const vta:Venta = {
         detalleVenta : this.detalleVenta,
-        tipoPago : t
+        tipoPago : t,
+        nota: this.notaVenta
       }
       return vta
     }

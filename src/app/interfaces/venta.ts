@@ -7,5 +7,6 @@ export interface Venta {
     cliente?:Cliente,
     detalleVenta:DetalleVenta[],
     fechaHora?:string,
-    tipoPago:TipoPago
+    tipoPago:TipoPago,
+    nota:string
 }

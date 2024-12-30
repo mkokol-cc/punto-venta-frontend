@@ -12,5 +12,6 @@ export const routes: Routes = [
         {path: 'tipo-pago', canActivate: [authAdminGuard], loadComponent: () => import('./pages/tipo-pago/tipo-pago.component').then(m => m.TipoPagoComponent), pathMatch: 'full'},
         /*{path: '', canActivate: [],loadComponent: () => import('./components/lista-metodo-pago/lista-metodo-pago.component').then(m => m.ListaMetodoPagoComponent), pathMatch: 'full'},*/
     ]},
+    //{path: '', component: LoginComponent},
     {path: 'login', component: LoginComponent}
 ];

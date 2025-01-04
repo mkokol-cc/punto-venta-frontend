@@ -12,6 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider'
 import { MatChipsModule } from '@angular/material/chips'
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { FormImageComponent } from '../form-image/form-image.component';
 
 @Component({
   selector: 'app-form-combo',
@@ -41,6 +43,7 @@ export class FormComboComponent implements OnInit{
   constructor(
     private fb: FormBuilder,
     private service: ArticuloService,
+    public dialog: MatDialog,
     private route: ActivatedRoute
   ) {
     this.form = this.fb.group({
@@ -137,6 +140,17 @@ export class FormComboComponent implements OnInit{
     this.form.get('recargo')?.setValue('')
     this.form.get('descripcion')?.setValue('')
     this.productos = []
+  }
+
+
+  openDialog(id:undefined|number): void {
+    const dialogRef = this.dialog.open(FormImageComponent, {
+      data: id,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log('selecciono veces: '+result)
+    });
   }
   
 }

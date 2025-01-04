@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Agrega imágenes al Artículo</h2>
+<mat-dialog-content>
+    <!--
+    <div>
+        @for (i of image; track i) {
+            <div></div>
+        }
+    </div>-->
+
+
+
+    <div>
+        <input type="file" (change)="onFileSelected($event)" multiple accept="image/*" />
+        <div class="row row-cols-4 p-4">
+            @for (image of previewImages; track image) {
+                <div class="col position-relative">
+                    <img class="img-thumbnail img-fluid" [src]="image"/><!-- alt="Image preview {{ i + 1 }}"-->
+                    <button mat-icon-button class="position-absolute top-0 start-0 bg-danger" type="button"><mat-icon>delete</mat-icon></button><!--(click)="removeImage(image)"-->
+                </div>
+            }
+        </div>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-button (click)="onClick()" cdkFocusInitial>Listo</button>
+</mat-dialog-actions>

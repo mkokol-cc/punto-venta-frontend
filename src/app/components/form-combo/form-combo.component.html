@@ -26,6 +26,10 @@
             <mat-label>Descripción</mat-label>
             <textarea matInput formControlName="descripcion"></textarea>
         </mat-form-field>
+        <button mat-raised-button color="primary" (click)="openDialog(id)" type="button">
+            Imagenes
+            <mat-icon>add_photo_alternate</mat-icon>
+        </button>
         <form [formGroup]="formDetalleCombo">
             <h4 class="text-center mt-2">Combo</h4>
             <div class="row g-1">

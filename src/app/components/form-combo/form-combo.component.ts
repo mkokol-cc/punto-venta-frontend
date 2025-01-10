@@ -143,13 +143,18 @@ export class FormComboComponent implements OnInit{
   }
 
 
-  openDialog(id:undefined|number): void {
+  openDialog(): void {
     const dialogRef = this.dialog.open(FormImageComponent, {
-      data: id,
+      data:{
+        idArticulo: this.id,
+        editMode: true,
+      },
+      autoFocus: true
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log('selecciono veces: '+result)
+      if(result!=false && this.id && this.id>0){
+        
+      }
     });
   }
   

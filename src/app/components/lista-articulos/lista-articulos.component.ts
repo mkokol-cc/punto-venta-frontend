@@ -16,6 +16,7 @@ import { BarcodePrintComponent } from '../barcode-print/barcode-print.component'
 import { ActivatedRoute, Router } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { FormImageComponent } from '../form-image/form-image.component';
 
 @Component({
   selector: 'app-lista-articulos',
@@ -109,6 +110,16 @@ export class ListaArticulosComponent {
     this.filter = ''
     this.removeableFilter = false
     this.getItems()
+  }
+
+  viewImages(a:Articulo){
+    const dialogRef = this.dialog.open(FormImageComponent, {
+      data:{
+        idArticulo: a.id,
+        editMode: false,
+      },
+      autoFocus: true
+    });
   }
 
 }

@@ -16,6 +16,7 @@ import { CurrencyPipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { EditDetalleVentaComponent } from '../edit-detalle-venta/edit-detalle-venta.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { FormImageComponent } from '../form-image/form-image.component';
 
 
 const ELEMENT_DATA: any[] = [
@@ -126,6 +127,16 @@ export class FormVentaComponent {
           detalleVenta.cantidad = result
         }
       }
+    });
+  }
+
+  viewImages(a:Articulo){
+    const dialogRef = this.dialog.open(FormImageComponent, {
+      data:{
+        idArticulo: a.id,
+        editMode: false,
+      },
+      autoFocus: true
     });
   }
 }

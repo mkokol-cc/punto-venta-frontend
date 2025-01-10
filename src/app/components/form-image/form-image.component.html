@@ -1,28 +1,37 @@
-<h2 mat-dialog-title>Agrega imágenes al Artículo</h2>
+@if(editMode){
+    <h2 mat-dialog-title>Agrega imágenes al Artículo</h2>
+}
 <mat-dialog-content>
-    <!--
+
     <div>
-        @for (i of image; track i) {
-            <div></div>
+        @if(editMode){
+            <input type="file" (change)="onFileSelected($event)" multiple accept="image/*" />
         }
-    </div>-->
-
-
-
-    <div>
-        <input type="file" (change)="onFileSelected($event)" multiple accept="image/*" />
         <div class="row row-cols-4 p-4">
-            @for (image of previewImages; track image) {
+            @for (image of images; track image) {
                 <div class="col position-relative">
-                    <img class="img-thumbnail img-fluid" [src]="image"/><!-- alt="Image preview {{ i + 1 }}"-->
-                    <button mat-icon-button class="position-absolute top-0 start-0 bg-danger" type="button"><mat-icon>delete</mat-icon></button><!--(click)="removeImage(image)"-->
+                    <img class="img-thumbnail img-fluid" [src]="image.id ? ('data:image/jpeg;base64,' + image.data) : image.data"/>
+                    <div class="position-absolute top-0 start-0">
+                        @if(editMode){
+                            <button mat-icon-button (click)="delete(image)" type="button" class="bg-danger"><mat-icon>delete</mat-icon></button>
+                        }                        
+                        <button mat-icon-button (click)="view(image)" type="button" class="bg-primary"><mat-icon>visibility</mat-icon></button>
+                    </div>
                 </div>
             }
         </div>
+        @if(!(images.length>0)){
+            <h4>Aun no hay imágenes del artículo</h4>
+        }
     </div>
 
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancelar</button>
-    <button mat-button (click)="onClick()" cdkFocusInitial>Listo</button>
+    @if(editMode){
+        <button mat-button (click)="onNoClick()">Cancelar</button>
+        <button mat-button (click)="onClick()" cdkFocusInitial>Listo</button>
+    }
+    @else{
+        <button mat-button (click)="onNoClick()">Cerrar</button>
+    }
 </mat-dialog-actions>

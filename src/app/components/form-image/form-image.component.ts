@@ -1,6 +1,6 @@
-import { Component, Input, input, SimpleChanges } from '@angular/core';
+import { Component, Inject, Input, input, SimpleChanges } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ImageService } from '../../services/image.service';
 import { Imagen } from '../../interfaces/imagen';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,24 +21,28 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class FormImageComponent {
 
-  @Input() idArticulo?: number;
-  idToDelete:number[]=[]
-  imagesToUpload:Imagen[]=[]
   images:Imagen[]=[]
-  constructor(public dialogRef: MatDialogRef<FormImageComponent>, private service:ImageService){}
+  savedImages:Imagen[]=[]
+  idArticulo: number
+  editMode: boolean
 
-  ngOnChanges(changes: SimpleChanges) {
-    if(changes['idArticulo']){
-      if(this.idArticulo && this.idArticulo>0){
-        this.getImages(this.idArticulo)
-      }
+  constructor(
+    public dialogRef: MatDialogRef<FormImageComponent>, 
+    private service:ImageService,
+    @Inject(MAT_DIALOG_DATA) public data: { idArticulo: number; editMode: boolean },
+  ){
+    this.idArticulo = data.idArticulo
+    this.editMode = data.editMode
+    if(this.data.idArticulo>0){
+      this.service.getImagesByArticuloId(this.data.idArticulo).subscribe(obj=>{
+        this.savedImages=[...obj];
+        this.images=[...obj];
+      })
     }
   }
 
-  getImages(id:number){
-    this.service.getImagesByArticuloId(id).subscribe(obj=>{
-      this.images=obj;
-    })
+  delete(imagen:Imagen){
+    this.images = this.images.filter(i => imagen.data != i.data);
   }
 
   onNoClick(): void {
@@ -46,47 +50,52 @@ export class FormImageComponent {
   }
 
   onClick(): void {
-    this.dialogRef.close(true);
+    if (this.idArticulo > 0) {
+      // Filtrar imágenes a eliminar y a guardar
+      const imagenesAEliminar = this.savedImages.filter(
+        (img) => !this.images.some((newImg) => newImg.id === img.id)
+      );
+      const imagenesAGuardar = this.images.filter(
+        (img) => !this.savedImages.some((savedImg) => savedImg.id === img.id)
+      );
+  
+      // Crear un array de promesas para las operaciones
+      const operaciones: Promise<any>[] = [];
+  
+      // Subir imágenes nuevas
+      imagenesAGuardar.forEach((img) => {
+        if (!img.id && img.file) {
+          operaciones.push(this.service.uploadImage(this.idArticulo, img.file).toPromise());
+        }
+      });
+  
+      // Eliminar imágenes
+      imagenesAEliminar.forEach((img) => {
+        if (img.id) {
+          operaciones.push(this.service.deleteImage(img.id).toPromise());
+        }
+      });
+  
+      // Esperar a que todas las operaciones se completen
+      Promise.all(operaciones)
+        .then(() => {
+          console.log('Operaciones completadas');
+          this.dialogRef.close(); // Cerrar el diálogo después de completar las operaciones
+        })
+        .catch((error) => {
+          console.error('Error en alguna operación:', error);
+          // Opcional: mostrar un mensaje de error al usuario
+        });
+  
+      return;
+    }
+  
+    // Si no hay idArticulo, cerrar el diálogo con las imágenes actuales
+    this.dialogRef.close(this.images);
   }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  previewImages: string[] = [];
   files: File[] = [];
 
   onFileSelected(event: Event): void {
@@ -97,7 +106,10 @@ export class FormImageComponent {
       this.files.push(file);
       const reader = new FileReader();
       reader.onload = () => {
-        this.previewImages.push(reader.result as string);
+        this.images.push({
+          data:reader.result as string,
+          file:file
+        })
       };
       reader.readAsDataURL(file);
     });
@@ -106,9 +118,15 @@ export class FormImageComponent {
     input.value = '';
   }
 
-  removeImage(index: number): void {
-    this.files.splice(index, 1);
-    this.previewImages.splice(index, 1);
+  view(image:Imagen){
+    const imageData = image.id ? ('data:image/jpeg;base64,' + image.data) : image.data    
+    // Abrir en una nueva pestaña
+    const newTab = window.open();
+    if (newTab) {
+      newTab.document.body.innerHTML = `<img src="${imageData}"/>`;
+    } else {
+      console.error('No se pudo abrir una nueva pestaña.');
+    }
   }
 
 }
